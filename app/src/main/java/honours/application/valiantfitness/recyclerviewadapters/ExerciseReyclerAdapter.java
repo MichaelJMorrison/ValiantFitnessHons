@@ -19,11 +19,23 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
     private Context context;
     private List<ExerciseCategory> exerciseCategories;
     private static final String TAG = "ExerciseReyclerAdapter";
+
+    private String mode;
     public ExerciseReyclerAdapter(Context context, List<ExerciseCategory> exerciseCategories) {
         super();
         this.context = context;
         this.exerciseCategories = exerciseCategories;
     }
+
+    public void setExerciseCategories(List<ExerciseCategory> newExerciseCategories) {
+        exerciseCategories = newExerciseCategories;
+        notifyDataSetChanged();
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
 
     @NonNull
     @Override
@@ -39,15 +51,17 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-        ExerciseCategory exerciseCategory = this.exerciseCategories.get(position);
+        ExerciseCategory exerciseCategory = exerciseCategories.get(position);
         TextView textView = holder.itemView.findViewById(R.id.categoryText);
         textView.setText(exerciseCategory.getName());
     }
 
     @Override
     public int getItemCount() {
-        return this.exerciseCategories.size();
+        return exerciseCategories.size();
     }
+
+
 
     class ExerciseViewHolder extends RecyclerView.ViewHolder {
 
