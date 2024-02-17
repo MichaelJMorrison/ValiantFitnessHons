@@ -2,11 +2,22 @@ package honours.application.valiantfitness;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import honours.application.valiantfitness.databinding.ActivityMainBinding;
+import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
+import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,9 +28,10 @@ public class WorkoutFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
+    private RecyclerView exerciseRecyler;
+    private List<ExerciseCategory> exerciseCategoryList;
+    private ExerciseReyclerAdapter RVAdapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -40,8 +52,7 @@ public class WorkoutFragment extends Fragment {
     public static WorkoutFragment newInstance(String param1, String param2) {
         WorkoutFragment fragment = new WorkoutFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,16 +60,37 @@ public class WorkoutFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_workout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.exerciseCategoryList = new ArrayList<>();
+        this.exerciseCategoryList.add(new ExerciseCategory("Arms","Arms"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Legs","Legs"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Shoulders","Shoulders"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Dumbbells","Arms"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Bench","Legs"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Smith Machine","Shoulders"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Row","Arms"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Back","Back"));
+        this.exerciseCategoryList.add(new ExerciseCategory("Shoulders","Shoulders"));
+        exerciseRecyler = view.findViewById(R.id.rv_Exercise);
+        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList);
+        exerciseRecyler.setAdapter(RVAdapter);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        exerciseRecyler.setLayoutManager(layoutManager);
+
     }
 }
