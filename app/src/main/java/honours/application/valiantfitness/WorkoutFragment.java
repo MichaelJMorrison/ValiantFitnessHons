@@ -19,8 +19,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import honours.application.valiantfitness.databinding.ActivityMainBinding;
+import org.w3c.dom.Text;
+
+
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
+import honours.application.valiantfitness.recyclerviewadapters.ExerciseIndividualRecyclerAdapter;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
 
 /**
@@ -35,10 +38,15 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView exerciseRecyler;
     private RecyclerView exerciseRecyler2;
+
+    private TextView txtByEquipment;
+    private TextView txtByBody;
+    private RecyclerView exerciseRecyler3;
     private List<ExerciseCategory> exerciseCategoryList;
     private List<ExerciseCategory> exerciseCategoryList2;
     private ExerciseReyclerAdapter RVAdapter;
     private ExerciseReyclerAdapter RVAdapter2;
+    private ExerciseIndividualRecyclerAdapter RVAdapter3;
 
     private String mode;
     // TODO: Rename and change types of parameters
@@ -134,19 +142,26 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         this.exerciseCategoryList2 = getExerciseBody();
         exerciseRecyler = view.findViewById(R.id.rv_Exercise);
         exerciseRecyler2 = view.findViewById(R.id.rv_Exercise2);
+        exerciseRecyler3 = view.findViewById(R.id.rv_Exercise3);
         RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2);
         RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList);
+        RVAdapter3 = new ExerciseIndividualRecyclerAdapter(getContext(),exerciseCategoryList);
         exerciseRecyler.setAdapter(RVAdapter);
         exerciseRecyler2.setAdapter(RVAdapter2);
+        exerciseRecyler3.setAdapter(RVAdapter3);
+        txtByBody = view.findViewById(R.id.txtBodyType);
+        txtByEquipment = view.findViewById(R.id.txtByEquipment);
 
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager3
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
        exerciseRecyler.setLayoutManager(layoutManager);
        exerciseRecyler2.setLayoutManager(layoutManager2);
-
+        exerciseRecyler3.setLayoutManager(layoutManager3);
         //swapRecyclers(view);
         Button btnWorkout = view.findViewById(R.id.btnWorkout);
         btnWorkout.setOnClickListener(this);
@@ -162,14 +177,16 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btnWorkout:
                 this.mode = "Exercise";
-
+                showViewer(view);
                 swapRecyclers(view);
                 break;
             case R.id.btnCreate:
 
+            hideViewer(view);
                 break;
             case R.id.btnPlan:
                 this.mode = "Plan";
+                showViewer(view);
                 swapRecyclers(view);
                 break;
             default:
@@ -181,6 +198,22 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    public void hideViewer(View view) {
+    exerciseRecyler.setVisibility(View.GONE);
+    exerciseRecyler2.setVisibility(View.GONE);
+    exerciseRecyler3.setVisibility(View.VISIBLE);
+    txtByBody.setVisibility(View.GONE);
+    txtByEquipment.setVisibility(View.GONE);
+
+    }
+
+    public void showViewer(View view) {
+        exerciseRecyler.setVisibility(View.VISIBLE);
+        exerciseRecyler2.setVisibility(View.VISIBLE);
+        exerciseRecyler3.setVisibility(View.GONE);
+        txtByEquipment.setVisibility(View.VISIBLE);
+        txtByBody.setVisibility(View.VISIBLE);
+    }
     public void swapRecyclers(View view){
         if (this.mode == "Exercise"){
             this.exerciseCategoryList = getExerciseEquipment();
