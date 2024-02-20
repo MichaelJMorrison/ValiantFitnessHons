@@ -8,7 +8,7 @@
     <Button
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/button"
+        android:id="@+id/btnExerciseCategory"
         android:layout_width="103dp"
         android:layout_height="103dp"
         android:background="@drawable/roundedbox2"
@@ -24,10 +24,10 @@
         android:id="@+id/imgBackground"
         android:layout_width="81dp"
         android:layout_height="88dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@+id/btnExerciseCategory"
+        app:layout_constraintEnd_toEndOf="@+id/btnExerciseCategory"
+        app:layout_constraintStart_toStartOf="@+id/btnExerciseCategory"
+        app:layout_constraintTop_toTopOf="@+id/btnExerciseCategory"
         app:srcCompat="@drawable/baseline_account_circle_24" />
 
     <TextView

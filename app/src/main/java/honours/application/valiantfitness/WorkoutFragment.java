@@ -94,12 +94,12 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Arms","Arms"));
-        ECL.add(new ExerciseCategory("Shoulders","Shoulders"));
-        ECL.add(new ExerciseCategory("Chest","Chest"));
-        ECL.add(new ExerciseCategory("Legs","Legs"));
-        ECL.add(new ExerciseCategory("Back","Back"));
-        ECL.add(new ExerciseCategory("Abs","Abs"));
+        ECL.add(new ExerciseCategory("Arms","Arms","Exercise"));
+        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise"));
+        ECL.add(new ExerciseCategory("Chest","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("Legs","Legs","Exercise"));
+        ECL.add(new ExerciseCategory("Back","Back","Exercise"));
+        ECL.add(new ExerciseCategory("Abs","Abs","Exercise"));
     return  ECL;
     };
 
@@ -108,11 +108,11 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
 
-        ECL.add(new ExerciseCategory("Dumbbells","Chest"));
-        ECL.add(new ExerciseCategory("Curved Barbell","Chest"));
-        ECL.add(new ExerciseCategory("Smith Machine","Chest"));
-        ECL.add(new ExerciseCategory("Kettle Bell","Chest"));
-        ECL.add(new ExerciseCategory("No Equipment","Chest"));
+        ECL.add(new ExerciseCategory("Dumbbells","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("Curved Barbell","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("Smith Machine","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("Kettle Bell","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("No Equipment","Chest","Exercise"));
         return  ECL;
     };
 
@@ -120,7 +120,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Abs Basic","Abs"));
+        ECL.add(new ExerciseCategory("Abs Basic","Abs","Workout"));
 
         return  ECL;
     };
@@ -130,8 +130,8 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
 
-        ECL.add(new ExerciseCategory("Upper Body Rush","Chest"));
-        ECL.add(new ExerciseCategory("Insanity Run","Cardio"));
+        ECL.add(new ExerciseCategory("Upper Body Rush","Chest","Workout"));
+        ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout"));
         return  ECL;
     };
 
@@ -143,8 +143,8 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         exerciseRecyler = view.findViewById(R.id.rv_Exercise);
         exerciseRecyler2 = view.findViewById(R.id.rv_Exercise2);
         exerciseRecyler3 = view.findViewById(R.id.rv_Exercise3);
-        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2);
-        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList);
+        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2,view);
+        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList,view);
         RVAdapter3 = new ExerciseIndividualRecyclerAdapter(getContext(),exerciseCategoryList);
         exerciseRecyler.setAdapter(RVAdapter);
         exerciseRecyler2.setAdapter(RVAdapter2);

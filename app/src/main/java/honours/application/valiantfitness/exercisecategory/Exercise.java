@@ -6,13 +6,34 @@ public class Exercise {
     int repetitionGoal;
     int repetitionCompleted;
     int weight;
-    String group;
+    String description;
 
-    public Exercise(String name, int repetitionGoal, int weight, String group) {
+    String Group;
+    String Mode;
+
+    public Exercise(String name, int repetitionGoal, int repetitionCompleted, int weight, String group, String mode) {
         this.name = name;
         this.repetitionGoal = repetitionGoal;
+        this.repetitionCompleted = repetitionCompleted;
         this.weight = weight;
-        this.group = group;
+        this.Group = group;
+        this.Mode = mode;
+    }
+
+    public String getGroup() {
+        return Group;
+    }
+
+    public void setGroup(String group) {
+        Group = group;
+    }
+
+    public String getMode() {
+        return Mode;
+    }
+
+    public void setMode(String mode) {
+        Mode = mode;
     }
 
     public String getName() {
@@ -47,11 +68,11 @@ public class Exercise {
         this.weight = weight;
     }
 
-    public String getGroup() {
-        return group;
+    public String getDescription() {
+        return description;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
