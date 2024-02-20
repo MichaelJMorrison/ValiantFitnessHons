@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 
+import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseIndividualRecyclerAdapter;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
@@ -94,13 +95,26 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Arms","Arms","Exercise"));
-        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise"));
-        ECL.add(new ExerciseCategory("Chest","Chest","Exercise"));
-        ECL.add(new ExerciseCategory("Legs","Legs","Exercise"));
-        ECL.add(new ExerciseCategory("Back","Back","Exercise"));
-        ECL.add(new ExerciseCategory("Abs","Abs","Exercise"));
+        ECL.add(new ExerciseCategory("Arms","Arms","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Chest","Chest","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Legs","Legs","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Back","Back","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Abs","Abs","Exercise","Body"));
     return  ECL;
+    };
+
+    public List<ExerciseCategory> getExerciseBody2(){
+
+        List<ExerciseCategory> ECL;
+        ECL= new ArrayList<>();
+        ECL.add(new ExerciseCategory("Arms","Arms","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Chest","Chest","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Legs","Legs","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Back","Back","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Abs","Abs","Exercise","Equipment"));
+        return  ECL;
     };
 
     public List<ExerciseCategory> getExerciseEquipment(){
@@ -108,11 +122,11 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
 
-        ECL.add(new ExerciseCategory("Dumbbells","Chest","Exercise"));
-        ECL.add(new ExerciseCategory("Curved Barbell","Chest","Exercise"));
-        ECL.add(new ExerciseCategory("Smith Machine","Chest","Exercise"));
-        ECL.add(new ExerciseCategory("Kettle Bell","Chest","Exercise"));
-        ECL.add(new ExerciseCategory("No Equipment","Chest","Exercise"));
+        ECL.add(new ExerciseCategory("Dumbbells","Chest","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Curved Barbell","Chest","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Smith Machine","Chest","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Kettle Bell","Chest","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("No Equipment","Chest","Exercise","Equipment"));
         return  ECL;
     };
 
@@ -124,6 +138,28 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         return  ECL;
     };
+
+    public List<Exercise> getAllExercises(){
+
+        List<Exercise> exercises = new ArrayList<>();
+        exercises.add(new Exercise("Bench Press","Chest","Equipment"));
+        exercises.add(new Exercise("Curved Barbell Curl","Arms","Equipment"));
+        exercises.add(new Exercise("Dumbbell Curl","Arms","Equipment"));
+        exercises.add(new Exercise("Dumbbell Press","Chest","Equipment"));
+        exercises.add(new Exercise("Barbell Curl","Arms","Equipment"));
+        exercises.add(new Exercise("Lateral Raises","Shoulders","Equipment"));
+        exercises.add(new Exercise("Lateral Pulldown","Back","Equipment"));
+        exercises.add(new Exercise("Weighted Squat","Legs","Equipment"));
+        exercises.add(new Exercise("Calve Raises","Legs","Equipment"));
+        exercises.add(new Exercise("Unweighted Squat","Legs","Body"));
+        exercises.add(new Exercise("Press ups","Chest","Body"));
+        exercises.add(new Exercise("Weighted Bulgarian Legs","Legs","Equipment"));
+        exercises.add(new Exercise("Unweighted Bulgarian Legs","Legs","Body"));
+        exercises.add(new Exercise("Sit Ups","Abs","Body"));
+        exercises.add(new Exercise("Plank","Abs","Body"));
+        exercises.add(new Exercise("Shoulder Press","Shoulders","Equipment"));
+        return exercises;
+    }
 
     public List<ExerciseCategory> getWorkoutEquipment(){
 
@@ -138,17 +174,18 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.exerciseCategoryList = getExerciseEquipment();
+        this.exerciseCategoryList = getExerciseBody2();
         this.exerciseCategoryList2 = getExerciseBody();
         exerciseRecyler = view.findViewById(R.id.rv_Exercise);
         exerciseRecyler2 = view.findViewById(R.id.rv_Exercise2);
         exerciseRecyler3 = view.findViewById(R.id.rv_Exercise3);
-        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2,view);
-        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList,view);
-        RVAdapter3 = new ExerciseIndividualRecyclerAdapter(getContext(),exerciseCategoryList);
+
+        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2,view,getAllExercises());
+        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList,view,getAllExercises());
+
         exerciseRecyler.setAdapter(RVAdapter);
         exerciseRecyler2.setAdapter(RVAdapter2);
-        exerciseRecyler3.setAdapter(RVAdapter3);
+       // exerciseRecyler3.setAdapter(RVAdapter3);
         txtByBody = view.findViewById(R.id.txtBodyType);
         txtByEquipment = view.findViewById(R.id.txtByEquipment);
 
@@ -216,7 +253,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
     }
     public void swapRecyclers(View view){
         if (this.mode == "Exercise"){
-            this.exerciseCategoryList = getExerciseEquipment();
+            this.exerciseCategoryList = getExerciseBody2();
             this.exerciseCategoryList2 = getExerciseBody();
 
         }else {

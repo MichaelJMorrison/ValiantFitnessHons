@@ -14,24 +14,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import honours.application.valiantfitness.R;
+import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
 
 public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReyclerAdapter.ExerciseViewHolder> {
     private Context context;
     private List<ExerciseCategory> exerciseCategories;
+
+    private List<Exercise> exercises;
     private static final String TAG = "ExerciseReyclerAdapter";
 
     private View rootview;
 
     private String mode;
-    public ExerciseReyclerAdapter(Context context, List<ExerciseCategory> exerciseCategories, @NonNull View rootview) {
+    public ExerciseReyclerAdapter(Context context, List<ExerciseCategory> exerciseCategories, @NonNull View rootview, List<Exercise> exercises) {
         super();
         this.context = context;
         this.exerciseCategories = exerciseCategories;
         this.rootview = rootview;
+        this.exercises = exercises;
     }
 
     public void setExerciseCategories(List<ExerciseCategory> newExerciseCategories) {
@@ -84,7 +89,7 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
             super(itemView);
             this.adapter = adapter;
             this.exerciseItemView = itemView;
-
+            this.context = this.adapter.context;
             //Listener
             itemView.findViewById(R.id.btnExerciseCategory).setOnClickListener(this);
         }
@@ -96,7 +101,9 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
                 RecyclerView exerciseRecycler = this.adapter.rootview.findViewById(R.id.rv_Exercise);
                 RecyclerView exerciseRecycler2 = this.adapter.rootview.findViewById(R.id.rv_Exercise2);
                 RecyclerView exerciseRecycler3 = this.adapter.rootview.findViewById(R.id.rv_Exercise3);
-
+                List<Exercise> filteredExercises = FilterExercises(this.exerciseCategory);
+                ExerciseIndividualRecyclerAdapter RVAdapter3 = new ExerciseIndividualRecyclerAdapter(this.context, filteredExercises);
+               exerciseRecycler3.setAdapter(RVAdapter3);
                 TextView txtByBody = this.adapter.rootview.findViewById(R.id.txtBodyType);
                 TextView txtByEquipment = this.adapter.rootview.findViewById(R.id.txtByEquipment);
                 exerciseRecycler.setVisibility(View.GONE);
@@ -109,6 +116,20 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
 
     }
 
+
+    public List<Exercise> FilterExercises(ExerciseCategory exerciseCategory) {
+        List<Exercise> exercises = new ArrayList<>();
+
+        for (Exercise exercise : this.adapter.exercises) {
+           if (exercise.getMode() == exerciseCategory.getEquipmentType() && exercise.getGroup() == exerciseCategory.getGroup()) {
+               exercises.add(exercise);
+           }
+
+        }
+
+
+        return exercises;
+    }
     }
 
 }

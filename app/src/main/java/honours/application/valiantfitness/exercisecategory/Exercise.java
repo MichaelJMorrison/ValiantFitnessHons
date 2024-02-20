@@ -3,7 +3,7 @@ package honours.application.valiantfitness.exercisecategory;
 public class Exercise {
 
     String name;
-    int repetitionGoal;
+
     int repetitionCompleted;
     int weight;
     String description;
@@ -11,11 +11,10 @@ public class Exercise {
     String Group;
     String Mode;
 
-    public Exercise(String name, int repetitionGoal, int repetitionCompleted, int weight, String group, String mode) {
+    public Exercise(String name, String group, String mode) {
         this.name = name;
-        this.repetitionGoal = repetitionGoal;
-        this.repetitionCompleted = repetitionCompleted;
-        this.weight = weight;
+
+
         this.Group = group;
         this.Mode = mode;
     }
@@ -44,13 +43,7 @@ public class Exercise {
         this.name = name;
     }
 
-    public int getRepetitionGoal() {
-        return repetitionGoal;
-    }
 
-    public void setRepetitionGoal(int repetitionGoal) {
-        this.repetitionGoal = repetitionGoal;
-    }
 
     public int getRepetitionCompleted() {
         return repetitionCompleted;

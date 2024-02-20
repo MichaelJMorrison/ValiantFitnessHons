@@ -13,22 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import honours.application.valiantfitness.R;
+import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
 
 public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<ExerciseIndividualRecyclerAdapter.ExerciseViewHolder> {
     private Context context;
-    private List<ExerciseCategory> exerciseCategories;
+
+    private List<Exercise> exercises;
     private static final String TAG = "ExerciseIndividualRecyclerAdapter";
 
     private String mode;
-    public ExerciseIndividualRecyclerAdapter(Context context, List<ExerciseCategory> exerciseCategories) {
+    public ExerciseIndividualRecyclerAdapter(Context context, List<Exercise> exercises) {
         super();
         this.context = context;
-        this.exerciseCategories = exerciseCategories;
+        this.exercises = exercises;
+
     }
 
-    public void setExerciseCategories(List<ExerciseCategory> newExerciseCategories) {
-        exerciseCategories = newExerciseCategories;
+
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
         notifyDataSetChanged();
     }
 
@@ -51,14 +60,14 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseIndividualRecyclerAdapter.ExerciseViewHolder holder, int position) {
-        ExerciseCategory exerciseCategory = exerciseCategories.get(position);
+        Exercise exercise = exercises.get(position);
         Button btnExercise = holder.itemView.findViewById(R.id.btnExerciseItem);
-        btnExercise.setText(exerciseCategory.getName());
+        btnExercise.setText(exercise.getName());
     }
 
     @Override
     public int getItemCount() {
-        return exerciseCategories.size();
+        return exercises.size();
     }
 
 

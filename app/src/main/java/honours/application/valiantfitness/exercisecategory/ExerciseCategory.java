@@ -9,10 +9,12 @@ public class ExerciseCategory {
 
     String mode;
 
+    String equipmentType;
+
     List<Exercise> exercises;
     int Image; // Might work for image?
 
-    public ExerciseCategory(String name, String group, int image,String mode) {
+    public ExerciseCategory(String name, String group, int image,String mode, String equipmentType) {
         this.name = name;
         this.group = group;
         this.Image = image;
@@ -25,10 +27,18 @@ public class ExerciseCategory {
 
     }
 
+    public ExerciseCategory(String name, String group, String mode, String equipmentType) {
+        this.name = name;
+        this.group = group;
+        this.mode = mode;
+        this.equipmentType = equipmentType;
+    }
+
     public ExerciseCategory(String name, String group, String mode) {
         this.name = name;
         this.group = group;
         this.mode = mode;
+
     }
 
     public String getGroup() {
@@ -53,5 +63,21 @@ public class ExerciseCategory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public String getEquipmentType() {
+        return equipmentType;
+    }
+
+    public void setEquipmentType(String equipmentType) {
+        this.equipmentType = equipmentType;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }
