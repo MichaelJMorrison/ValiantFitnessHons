@@ -1,6 +1,8 @@
 package honours.application.valiantfitness.recyclerviewadapters;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import honours.application.valiantfitness.ExerciseFragment;
 import honours.application.valiantfitness.R;
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
@@ -72,7 +76,7 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
 
 
 
-    class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private View stockItemView;
         private ExerciseIndividualRecyclerAdapter adapter;
@@ -80,5 +84,27 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
         public ExerciseViewHolder(@NonNull View itemView, ExerciseIndividualRecyclerAdapter adapter) {
             super(itemView);
             this.adapter = adapter;
-        }}
+            this.stockItemView = itemView;
+            itemView.findViewById(R.id.btnExerciseItem).setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick (View view) {
+            int position = getAdapterPosition();
+            Exercise exercise = this.adapter.exercises.get(position);
+            AppCompatActivity activity = (AppCompatActivity)this.adapter.context;
+
+            if (view.getId() == R.id.btnExerciseItem) {
+                if (exercise != null) {
+                    Bundle bundle = new Bundle();
+
+                    bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, exercise);
+                    ExerciseFragment informationFragment = new ExerciseFragment();
+                   informationFragment.setArguments(bundle);
+
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, informationFragment).commit();
+                }
+            }
+        }
+    }
 }

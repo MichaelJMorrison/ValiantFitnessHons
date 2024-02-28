@@ -5,11 +5,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import honours.application.valiantfitness.exercisecategory.*;
 import honours.application.valiantfitness.recyclerviewadapters.*;
 /**
@@ -22,17 +28,20 @@ public class ExerciseFragment extends Fragment {
   private Exercise exercise;
   private ExercisePageAdapter exercisePageAdapter;
   private RecyclerView exerciseRecycler;
+  private ExercisePageAdapter RVAdapter;
+  private List<Exercise> exercisesCompleted;
 
+    public static final String ARG_EXERCISE = "exercise";
     public ExerciseFragment() {
         // Required empty public constructor
     }
 
 
-    public static ExerciseFragment newInstance(String param1, String param2) {
+    public static ExerciseFragment newInstance(Exercise exercise) {
         ExerciseFragment fragment = new ExerciseFragment();
         Bundle args = new Bundle();
-
-        fragment.setArguments(args);
+       args.putParcelable(ARG_EXERCISE, exercise);
+       fragment.setArguments(args);
         return fragment;
     }
 
@@ -40,7 +49,10 @@ public class ExerciseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            Bundle args = getArguments();
+           this.exercise = args.getParcelable(ARG_EXERCISE);
+           this.exercisesCompleted = new ArrayList<>();
+           this.exercisesCompleted.add(this.exercise);
         }
     }
 
@@ -55,6 +67,13 @@ public class ExerciseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        TextView textTitle = view.findViewById(R.id.txtExerciseTitle);
+        textTitle.setText(this.exercise.getName());
+
         this.exerciseRecycler = view.findViewById(R.id.rv_ExerciseSet);
+        RVAdapter = new ExercisePageAdapter(getContext(),this.exercisesCompleted);
+        this.exerciseRecycler.setAdapter(RVAdapter);
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        exerciseRecycler.setLayoutManager(layoutManager);
     }
 }

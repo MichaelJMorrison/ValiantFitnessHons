@@ -50,7 +50,7 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
     @Override
     public ExercisePageAdapter.ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(context).inflate(R.layout.individualexerciseitem, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.exercisesetitem, parent, false);
 
 
         ExercisePageAdapter.ExerciseViewHolder stockViewHolder = new ExercisePageAdapter.ExerciseViewHolder(itemView, this);
@@ -61,8 +61,7 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
     @Override
     public void onBindViewHolder(@NonNull ExercisePageAdapter.ExerciseViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
-        Button btnExercise = holder.itemView.findViewById(R.id.btnExerciseItem);
-        btnExercise.setText(exercise.getName());
+
     }
 
     @Override

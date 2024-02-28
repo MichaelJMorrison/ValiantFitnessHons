@@ -1,6 +1,9 @@
 package honours.application.valiantfitness.exercisecategory;
 
-public class Exercise {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Exercise implements Parcelable {
 
     String name;
 
@@ -13,11 +16,33 @@ public class Exercise {
 
     public Exercise(String name, String group, String mode) {
         this.name = name;
-
-
         this.Group = group;
         this.Mode = mode;
     }
+
+    public Exercise(){};
+
+    protected Exercise(Parcel in) {
+
+        name = in.readString();
+
+    }
+    public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
+        @Override
+        public Exercise createFromParcel(Parcel in) {
+            Exercise exercise = new Exercise();
+
+
+            exercise.setName(in.readString());
+
+            return  exercise;
+        }
+
+        @Override
+        public Exercise[] newArray(int size) {
+            return new Exercise[size];
+        }
+    };
 
     public String getGroup() {
         return Group;
@@ -67,5 +92,17 @@ public class Exercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        //  out.writeLong(getId());
+        parcel.writeString(getName());
+
     }
 }
