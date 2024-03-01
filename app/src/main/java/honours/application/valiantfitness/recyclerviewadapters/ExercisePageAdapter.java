@@ -1,11 +1,12 @@
 package honours.application.valiantfitness.recyclerviewadapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,17 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import honours.application.valiantfitness.R;
-import honours.application.valiantfitness.exercisecategory.Exercise;
-import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
+import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 
 public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapter.ExerciseViewHolder> {
     private Context context;
 
-    private List<Exercise> exercises;
+    private List<ExerciseSetData> exercises;
     private static final String TAG = "ExcercisePageAdapter";
 
     private String mode;
-    public ExercisePageAdapter(Context context, List<Exercise> exercises) {
+    public ExercisePageAdapter(Context context, List<ExerciseSetData> exercises) {
         super();
         this.context = context;
         this.exercises = exercises;
@@ -32,13 +32,28 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
 
 
 
-    public List<Exercise> getExercises() {
+    public List<ExerciseSetData> getExercises() {
         return exercises;
     }
 
-    public void setExercises(List<Exercise> exercises) {
+    public void setExercises(List<ExerciseSetData> exercises) {
         this.exercises = exercises;
         notifyDataSetChanged();
+    }
+
+    public void addExercise(ExerciseSetData exercise) {
+        this.exercises.add(exercise);
+       // notifyDataSetChanged();
+        notifyItemInserted(getItemCount());
+    }
+
+    public void removeExercise(int exercise) {
+        if (getItemCount() > 1) {
+            this.exercises.remove(exercise);
+
+            notifyItemRemoved(exercise);
+        }
+
     }
 
     public void setMode(String mode) {
@@ -60,7 +75,7 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ExercisePageAdapter.ExerciseViewHolder holder, int position) {
-        Exercise exercise = exercises.get(position);
+        ExerciseSetData exercise = exercises.get(position);
 
     }
 
@@ -71,13 +86,91 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
 
 
 
-    class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private View stockItemView;
+        private ExerciseSetData exercise;
+
+       // private int position;
         private ExercisePageAdapter adapter;
+
+        public   EditText txtWeight;
+        public EditText txtReps;
 
         public ExerciseViewHolder(@NonNull View itemView, ExercisePageAdapter adapter) {
             super(itemView);
             this.adapter = adapter;
-        }}
+          //  position = getAdapterPosition();
+            this.exercise = new ExerciseSetData();
+            txtWeight = itemView.findViewById(R.id.txtWeight);
+            txtReps = itemView.findViewById(R.id.txtReps);
+            itemView.findViewById(R.id.btnAddSet).setOnClickListener(this);
+            itemView.findViewById(R.id.btnRemoveSet).setOnClickListener(this);
+            txtWeight.addTextChangedListener(textWatcher);
+            txtReps.addTextChangedListener(textWatcher);
+
+        }
+
+
+
+//https://stackoverflow.com/questions/4283062/textwatcher-for-more-than-one-edittext CREDIT
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = editable.toString();
+                if (txtReps.getText().hashCode() == editable.hashCode()) {
+                    if (text.length() > 0) {
+                        int rep = Integer.parseInt(text);
+                        exercise.setRep(rep);
+                        adapter.exercises.set(getAdapterPosition(),exercise);
+                    }
+                }
+                if (txtWeight.getText().hashCode() == editable.hashCode()) {
+                    if (text.length() > 0) {
+                        double weight = Double.parseDouble(text);
+                        exercise.setWeight(weight);
+                        adapter.exercises.set(getAdapterPosition(),exercise);
+                    }
+                }
+            }
+        };
+
+        @Override
+        public void onClick (View view) {
+          int  position = getAdapterPosition();
+            ExerciseSetData exercise = this.adapter.exercises.get(position);
+
+
+
+            if (view.getId() == R.id.btnAddSet) {
+
+               this.adapter.addExercise(new ExerciseSetData());
+            }
+
+            if (view.getId() == R.id.btnRemoveSet) {
+
+                if (getItemCount() != 1) {
+                    this.adapter.removeExercise(position);
+                    txtWeight.setText("");
+                    txtReps.setText("");
+
+
+                }
+
+            }
+        }
+
+    }
+
+
 }
