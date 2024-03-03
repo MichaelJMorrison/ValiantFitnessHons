@@ -1,14 +1,28 @@
 package honours.application.valiantfitness.exercisedata;
 
-public class ExerciseSetData {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-    private double weight;
-    private int rep;
+@Entity(tableName = "ExerciseSetData")
+public class ExerciseSetData  {
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    public int ID;
+
+
+    public int ExerciseID;
+    public double weight;
+    public int rep;
 
     public ExerciseSetData(double weight, int rep) {
         this.weight = weight;
         this.rep = rep;
     }
+
+
 
     public double getWeight() {
         return weight;

@@ -1,26 +1,80 @@
 package honours.application.valiantfitness.exercisedata;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(tableName = "ExerciseData")
 public class ExerciseData {
-    @PrimaryKey
-    public int id;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    public int ID;
+    public String deviceID;
 
     public Date date;
 
     public String name;
 
-    public List<ExerciseSetData> setDataList;
 
-    public ExerciseData(int id, Date date, String name, List<ExerciseSetData> setDataList) {
-        this.id = id;
-        this.date = date;
+   // public List<ExerciseSetData> setDataList;
+
+    public ExerciseData(int ID) {
+        this.ID = ID;
+    }
+    public ExerciseData() {
+
+    }
+
+
+    public ExerciseData(String name) {
+
+
         this.name = name;
-        this.setDataList = setDataList;
+
+    }
+@NonNull
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "ExerciseData{" +
+                "ID=" + ID +
+                ", deviceID='" + deviceID + '\'' +
+                ", date=" + date +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

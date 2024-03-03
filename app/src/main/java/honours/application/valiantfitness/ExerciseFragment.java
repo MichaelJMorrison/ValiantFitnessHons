@@ -30,8 +30,8 @@ import honours.application.valiantfitness.recyclerviewadapters.*;
 public class ExerciseFragment extends Fragment implements View.OnClickListener {
 
   private Exercise exercise;
-
-    private static final String TAG = "ExerciseFragment";
+   //private ExerciseRepository exerciseRepository;
+   private static final String TAG = "ExerciseFragment";
   private ExercisePageAdapter exercisePageAdapter;
   private RecyclerView exerciseRecycler;
   private ExercisePageAdapter RVAdapter;
@@ -54,6 +54,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // this.exerciseRepository = new ExerciseRepository(getContext());
         if (getArguments() != null) {
             Bundle args = getArguments();
            this.exercise = args.getParcelable(ARG_EXERCISE);
@@ -95,13 +96,15 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
                 //Time to access Recycler Data
                 Log.d(TAG, exercisesCompleted.toString());
                 if (exercisesCompleted.size() >= 0) {
-                    ExerciseData exceriseData = new ExerciseData((int)(System.currentTimeMillis()/1000),new Date(),exercise.getName(),exercisesCompleted);
+                    ExerciseData exerciseData = new ExerciseData(exercise.getName());
 
                     try {
-
+                     //   exerciseRepository.AddExercise(exerciseData); (not activating till I add history section)
                     }catch (Error e) {
-
+                        Log.d(TAG, "LOGGING FAILED, ERROR ");
+                        e.printStackTrace();
                     }finally {
+                        Log.d(TAG, "LOGGING SUCCESSFUL ");
 
                     }
                 }
