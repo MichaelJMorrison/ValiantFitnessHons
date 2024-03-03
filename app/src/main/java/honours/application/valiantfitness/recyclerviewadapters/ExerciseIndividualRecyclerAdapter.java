@@ -100,7 +100,7 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
 
                     bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, exercise);
                     ExerciseFragment informationFragment = new ExerciseFragment();
-                   informationFragment.setArguments(bundle);
+                    informationFragment.setArguments(bundle);
 
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, informationFragment).commit();
                 }

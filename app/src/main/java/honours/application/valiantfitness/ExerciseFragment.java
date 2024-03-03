@@ -4,7 +4,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +32,7 @@ import honours.application.valiantfitness.recyclerviewadapters.*;
  * Use the {@link ExerciseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExerciseFragment extends Fragment implements View.OnClickListener {
+public class ExerciseFragment extends Fragment implements View.OnClickListener,TabLayout.OnTabSelectedListener {
 
   private Exercise exercise;
    //private ExerciseRepository exerciseRepository;
@@ -36,6 +41,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
   private RecyclerView exerciseRecycler;
   private ExercisePageAdapter RVAdapter;
   private List<ExerciseSetData> exercisesCompleted;
+  private Button btnLog;
 
     public static final String ARG_EXERCISE = "exercise";
     public ExerciseFragment() {
@@ -84,8 +90,39 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         exerciseRecycler.setLayoutManager(layoutManager);
 
-        Button btnLog = view.findViewById(R.id.btnLog);
+        this.btnLog = view.findViewById(R.id.btnLog);
         btnLog.setOnClickListener(this);
+
+        TabLayout tabLayout = view.findViewById(R.id.tbExercise);
+
+        tabLayout.setOnTabSelectedListener(this);
+        replaceFragment(new TabExerciseSet());
+
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+    switch (tab.getPosition()) {
+        case 0:
+            replaceFragment(new TabExerciseSet());
+            btnLog.setVisibility(View.VISIBLE);
+        break;
+
+        case 1:
+            replaceFragment(new TabExerciseHistory());
+          btnLog.setVisibility(View.GONE);
+        break;
+    }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
     @Override
@@ -115,5 +152,20 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, exercise);
+
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.tabExerciseDisplay,fragment);
+        fragmentTransaction.commit();
     }
 }
