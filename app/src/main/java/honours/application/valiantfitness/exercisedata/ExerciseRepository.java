@@ -17,9 +17,14 @@ public class ExerciseRepository {
 
    }
 
-    public void AddExercise(ExerciseData exerciseData) {
-        this.exerciseDao.insert(exerciseData);
+    public long AddExercise(ExerciseData exerciseData) {
+    long id = this.exerciseDao.insert(exerciseData);
+
+       return id;
+
     }
+
+
 
     public void DeleteExercise(ExerciseData exerciseData) {
         this.exerciseDao.delete(exerciseData);

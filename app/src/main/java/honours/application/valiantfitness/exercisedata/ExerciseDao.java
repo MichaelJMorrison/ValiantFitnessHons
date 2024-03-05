@@ -25,7 +25,9 @@ public interface ExerciseDao {
     public List<ExerciseData> getAllExerciseData();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insert(ExerciseData exerciseData);
+    public long insert(ExerciseData exerciseData);
+
+
 
 
 

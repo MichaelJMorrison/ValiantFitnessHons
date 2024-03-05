@@ -1,5 +1,6 @@
 package honours.application.valiantfitness;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,18 +34,21 @@ import honours.application.valiantfitness.recyclerviewadapters.*;
  * Use the {@link ExerciseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExerciseFragment extends Fragment implements View.OnClickListener,TabLayout.OnTabSelectedListener {
+public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelectedListener {
 
   private Exercise exercise;
+
+  private Context context;
    //private ExerciseRepository exerciseRepository;
    private static final String TAG = "ExerciseFragment";
   private ExercisePageAdapter exercisePageAdapter;
   private RecyclerView exerciseRecycler;
   private ExercisePageAdapter RVAdapter;
   private List<ExerciseSetData> exercisesCompleted;
-  private Button btnLog;
+
 
     public static final String ARG_EXERCISE = "exercise";
+    public static final String ARG_CONTEXT = "exercise";
     public ExerciseFragment() {
         // Required empty public constructor
     }
@@ -80,7 +85,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener,T
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        this.context = getContext();
         TextView textTitle = view.findViewById(R.id.txtExerciseTitle);
         textTitle.setText(this.exercise.getName());
 
@@ -90,8 +95,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener,T
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         exerciseRecycler.setLayoutManager(layoutManager);
 
-        this.btnLog = view.findViewById(R.id.btnLog);
-        btnLog.setOnClickListener(this);
+
 
         TabLayout tabLayout = view.findViewById(R.id.tbExercise);
 
@@ -105,12 +109,12 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener,T
     switch (tab.getPosition()) {
         case 0:
             replaceFragment(new TabExerciseSet());
-            btnLog.setVisibility(View.VISIBLE);
+           // btnLog.setVisibility(View.VISIBLE);
         break;
 
         case 1:
             replaceFragment(new TabExerciseHistory());
-          btnLog.setVisibility(View.GONE);
+        //  btnLog.setVisibility(View.GONE);
         break;
     }
     }
@@ -125,34 +129,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener,T
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
 
-            case R.id.btnLog:
-                //Time to access Recycler Data
-                Log.d(TAG, exercisesCompleted.toString());
-                if (exercisesCompleted.size() >= 0) {
-                    ExerciseData exerciseData = new ExerciseData(exercise.getName());
-
-                    try {
-                     //   exerciseRepository.AddExercise(exerciseData); (not activating till I add history section)
-                    }catch (Error e) {
-                        Log.d(TAG, "LOGGING FAILED, ERROR ");
-                        e.printStackTrace();
-                    }finally {
-                        Log.d(TAG, "LOGGING SUCCESSFUL ");
-
-                    }
-                }
-
-
-              break;
-            default:
-                break;
-
-        }
-    }
 
     private void replaceFragment(Fragment fragment) {
         AppCompatActivity activity = (AppCompatActivity) getContext();
@@ -160,7 +137,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener,T
         Bundle bundle = new Bundle();
 
         bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, exercise);
-
+       // bundle.putParcelable(ExerciseFragment.ARG_CONTEXT, (Parcelable) context);
         fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getSupportFragmentManager();

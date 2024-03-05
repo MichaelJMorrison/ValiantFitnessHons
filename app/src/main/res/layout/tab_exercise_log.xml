@@ -8,5 +8,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ExerciseSetTab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="750dp" />
+
+    <Button
+        android:id="@+id/btnLog"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+
+        android:layout_gravity="bottom"
+        android:text="LOG" />
+
 </FrameLayout>

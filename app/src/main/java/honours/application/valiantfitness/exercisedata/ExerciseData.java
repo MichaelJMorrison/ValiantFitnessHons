@@ -11,7 +11,7 @@ import java.util.List;
 public class ExerciseData {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    public int ID;
+    public long ID;
     public String deviceID;
 
     public Date date;
@@ -21,7 +21,7 @@ public class ExerciseData {
 
    // public List<ExerciseSetData> setDataList;
 
-    public ExerciseData(int ID) {
+    public ExerciseData(long ID) {
         this.ID = ID;
     }
     public ExerciseData() {
@@ -36,11 +36,11 @@ public class ExerciseData {
 
     }
 @NonNull
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 

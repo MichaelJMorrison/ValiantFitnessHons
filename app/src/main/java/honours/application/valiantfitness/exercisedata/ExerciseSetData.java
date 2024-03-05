@@ -13,7 +13,7 @@ public class ExerciseSetData  {
     public int ID;
 
 
-    public int ExerciseID;
+    public long ExerciseID;
     public double weight;
     public int rep;
 
@@ -45,10 +45,28 @@ public class ExerciseSetData  {
         this.weight = 0;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public long getExerciseID() {
+        return ExerciseID;
+    }
+
+    public void setExerciseID(long exerciseID) {
+        ExerciseID = exerciseID;
+    }
+
     @Override
     public String toString() {
-        return "exerciseSetData{" +
-                "weight=" + weight +
+        return "ExerciseSetData{" +
+                "ID=" + ID +
+                ", ExerciseID=" + ExerciseID +
+                ", weight=" + weight +
                 ", rep=" + rep +
                 '}';
     }

@@ -58,20 +58,6 @@
         android:visibility="gone"/>
 
 
-
-
-    <Button
-        android:id="@+id/btnLog"
-        android:layout_width="0dp"
-        android:layout_height="63dp"
-        android:text="Log"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tbExercise"
         android:layout_width="match_parent"
@@ -100,14 +86,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tabExerciseDisplay"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/tbExercise"
+        app:layout_constraintVertical_bias="0.113">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
