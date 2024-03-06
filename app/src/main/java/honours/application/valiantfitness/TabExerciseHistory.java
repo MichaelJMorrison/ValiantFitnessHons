@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,13 @@ import android.widget.Button;
 import java.util.List;
 
 import honours.application.valiantfitness.exercisecategory.Exercise;
+import honours.application.valiantfitness.exercisedata.ExerciseData;
+import honours.application.valiantfitness.exercisedata.ExerciseRepository;
 import honours.application.valiantfitness.exercisedata.ExerciseSetData;
+import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
+import honours.application.valiantfitness.recyclerviewadapters.ExerciseHistoryAdapter;
 import honours.application.valiantfitness.recyclerviewadapters.ExercisePageAdapter;
+import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +33,6 @@ import honours.application.valiantfitness.recyclerviewadapters.ExercisePageAdapt
  */
 public class TabExerciseHistory extends Fragment {
     private Exercise exercise;
-    private RecyclerView exerciseRecycler;
-    private ExercisePageAdapter RVAdapter;
 
     public static final String ARG_EXERCISE = "exercise";
 
@@ -37,6 +41,11 @@ public class TabExerciseHistory extends Fragment {
     String android_id;
     private static final String TAG = "TabExerciseHistory";
     private Button btnLog;
+
+    private RecyclerView exerciseRecycler;
+    private ExerciseHistoryAdapter RVAdapter;
+
+    private List<ExerciseData> exerciseHistory;
     public TabExerciseHistory() {
         // Required empty public constructor
     }
@@ -68,7 +77,17 @@ public class TabExerciseHistory extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
+        this.exerciseHistory = exerciseRepository.GetExercisesWithName(this.exercise.getName());
+        ExerciseSetRepository exerciseRepository2 = new ExerciseSetRepository(getContext());
+        List<ExerciseSetData> setData = exerciseRepository2.getAllExerciseSetData();
+        Log.d(TAG, exercise.toString());
+        Log.d(TAG, setData.toString());
 
-
+ exerciseRecycler = view.findViewById(R.id.rv_exercise_history);
+      RVAdapter = new ExerciseHistoryAdapter(getContext(),this.exerciseHistory);
+       exerciseRecycler.setAdapter(RVAdapter);
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        exerciseRecycler.setLayoutManager(layoutManager);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class WorkoutPlan {
        String name;
-       List exercises;
+       List<Exercise> exercises;
 
        String group;
 

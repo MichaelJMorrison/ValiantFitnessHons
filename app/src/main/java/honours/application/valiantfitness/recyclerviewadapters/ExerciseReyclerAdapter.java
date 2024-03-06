@@ -111,7 +111,10 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
                 exerciseRecycler3.setVisibility(View.VISIBLE);
                 txtByBody.setVisibility(View.GONE);
                 txtByEquipment.setVisibility(View.GONE);
+            } else if (this.exerciseCategory.getMode() == "Workout") {
+                
             }
+
         }
 
     }

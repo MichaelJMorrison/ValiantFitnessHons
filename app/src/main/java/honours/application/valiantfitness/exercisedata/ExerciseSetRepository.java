@@ -2,6 +2,8 @@ package honours.application.valiantfitness.exercisedata;
 
 import android.content.Context;
 
+import java.util.List;
+
 public class ExerciseSetRepository {
     private static final String TAG = "ExerciseSetRepository";
 
@@ -20,5 +22,13 @@ public class ExerciseSetRepository {
 
     public void DeleteExerciseSet(ExerciseSetData exerciseData) {
         this.exerciseSetDao.delete(exerciseData);
+    }
+
+    public List<ExerciseSetData> GetAllExerciseSetDataFromExerciseID(long id) {
+        return this.exerciseSetDao.getAllExerciseSetDataFromExerciseID(id);
+    }
+
+    public List<ExerciseSetData> getAllExerciseSetData() {
+        return this.exerciseSetDao.getAllExerciseSetData();
     }
 }

@@ -78,13 +78,13 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
 
     class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private View stockItemView;
+        private View exerciseViewItem;
         private ExerciseIndividualRecyclerAdapter adapter;
 
         public ExerciseViewHolder(@NonNull View itemView, ExerciseIndividualRecyclerAdapter adapter) {
             super(itemView);
             this.adapter = adapter;
-            this.stockItemView = itemView;
+            this.exerciseViewItem = itemView;
             itemView.findViewById(R.id.btnExerciseItem).setOnClickListener(this);
         }
 
@@ -99,10 +99,10 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
                     Bundle bundle = new Bundle();
 
                     bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, exercise);
-                    ExerciseFragment informationFragment = new ExerciseFragment();
-                    informationFragment.setArguments(bundle);
+                    ExerciseFragment exerciseFragment = new ExerciseFragment();
+                    exerciseFragment.setArguments(bundle);
 
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, informationFragment).commit();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, exerciseFragment).commit();
                 }
             }
         }

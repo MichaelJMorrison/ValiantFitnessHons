@@ -25,6 +25,9 @@ public class ExerciseRepository {
     }
 
 
+    public List<ExerciseData> GetExercisesWithName(String name) {
+        return this.exerciseDao.getExercisesFromName(name);
+    }
 
     public void DeleteExercise(ExerciseData exerciseData) {
         this.exerciseDao.delete(exerciseData);

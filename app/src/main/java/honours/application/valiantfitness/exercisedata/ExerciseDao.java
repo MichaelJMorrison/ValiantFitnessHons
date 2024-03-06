@@ -24,6 +24,9 @@ public interface ExerciseDao {
     @Query("Select * from ExerciseData")
     public List<ExerciseData> getAllExerciseData();
 
+    @Query("Select * from ExerciseData WHERE name like :name")
+    public List<ExerciseData> getExercisesFromName(String name);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(ExerciseData exerciseData);
 

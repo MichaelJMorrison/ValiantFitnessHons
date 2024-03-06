@@ -10,7 +10,7 @@ public class ExerciseSetData  {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    public int ID;
+    public long ID;
 
 
     public long ExerciseID;
@@ -45,11 +45,11 @@ public class ExerciseSetData  {
         this.weight = 0;
     }
 
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
