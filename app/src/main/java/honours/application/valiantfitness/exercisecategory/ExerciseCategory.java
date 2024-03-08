@@ -11,6 +11,8 @@ public class ExerciseCategory {
 
     String equipmentType;
 
+    WorkoutPlan workoutPlan;
+
     List<Exercise> exercises;
     int Image; // Might work for image?
 
@@ -39,6 +41,13 @@ public class ExerciseCategory {
         this.group = group;
         this.mode = mode;
 
+    }
+
+    public ExerciseCategory(String name, String group, String mode, WorkoutPlan workoutPlan) {
+        this.name = name;
+        this.group = group;
+        this.mode = mode;
+        this.workoutPlan = workoutPlan;
     }
 
     public String getGroup() {
@@ -79,5 +88,13 @@ public class ExerciseCategory {
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    public WorkoutPlan getWorkoutPlan() {
+        return workoutPlan;
+    }
+
+    public void setWorkoutPlan(WorkoutPlan workoutPlan) {
+        this.workoutPlan = workoutPlan;
     }
 }

@@ -24,6 +24,7 @@ import org.w3c.dom.Text;
 
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
+import honours.application.valiantfitness.exercisecategory.WorkoutPlan;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseIndividualRecyclerAdapter;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
 
@@ -167,7 +168,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         ECL= new ArrayList<>();
 
         ECL.add(new ExerciseCategory("Upper Body Rush","Chest","Workout"));
-        ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout"));
+        ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout",new WorkoutPlan("Insanity Run",getAllExercises(),"Cardio")));
         return  ECL;
     };
 

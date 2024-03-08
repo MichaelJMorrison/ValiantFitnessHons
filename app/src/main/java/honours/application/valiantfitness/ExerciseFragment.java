@@ -41,14 +41,14 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
   private Context context;
    //private ExerciseRepository exerciseRepository;
    private static final String TAG = "ExerciseFragment";
-  private ExercisePageAdapter exercisePageAdapter;
+
   private RecyclerView exerciseRecycler;
   private ExercisePageAdapter RVAdapter;
   private List<ExerciseSetData> exercisesCompleted;
 
 
     public static final String ARG_EXERCISE = "exercise";
-    public static final String ARG_CONTEXT = "exercise";
+    public static final String ARG_CONTEXT = "context";
     public ExerciseFragment() {
         // Required empty public constructor
     }

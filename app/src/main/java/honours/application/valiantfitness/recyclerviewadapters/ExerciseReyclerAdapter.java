@@ -2,6 +2,7 @@ package honours.application.valiantfitness.recyclerviewadapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
@@ -17,7 +19,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import honours.application.valiantfitness.ExerciseFragment;
+
 import honours.application.valiantfitness.R;
+import honours.application.valiantfitness.WorkoutPlanFragment;
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
 
@@ -95,7 +100,7 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
         }
 
     public void onClick(View view) {
-
+        AppCompatActivity activity = (AppCompatActivity)this.adapter.context;
         if (this.exerciseCategory.getMode() != null) {
             if(this.exerciseCategory.getMode() == "Exercise") {
                 RecyclerView exerciseRecycler = this.adapter.rootview.findViewById(R.id.rv_Exercise);
@@ -112,7 +117,15 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
                 txtByBody.setVisibility(View.GONE);
                 txtByEquipment.setVisibility(View.GONE);
             } else if (this.exerciseCategory.getMode() == "Workout") {
-                
+                if (this.exerciseCategory != null) {
+                    Bundle bundle = new Bundle();
+
+                   bundle.putParcelable(WorkoutPlanFragment.ARG_PLAN, this.exerciseCategory.getWorkoutPlan());
+                    WorkoutPlanFragment workoutPlanFragment = new WorkoutPlanFragment();
+                    workoutPlanFragment.setArguments(bundle);
+
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, workoutPlanFragment).commit();
+                }
             }
 
         }
