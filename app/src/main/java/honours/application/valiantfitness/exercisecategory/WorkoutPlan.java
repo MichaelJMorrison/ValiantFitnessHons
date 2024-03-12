@@ -12,18 +12,21 @@ public class WorkoutPlan implements Parcelable {
        String name;
        List<Exercise> exercises;
 
+       int progress;
        String group;
 
        public WorkoutPlan(String name, List<Exercise> exercises, String group) {
               this.name = name;
               this.exercises = exercises;
               this.group = group;
+              this.progress = 0;
        }
 
        protected WorkoutPlan(Parcel in) {
               name = in.readString();
               exercises = in.createTypedArrayList(Exercise.CREATOR);
               group = in.readString();
+              progress = in.readInt();
        }
 
        public static final Creator<WorkoutPlan> CREATOR = new Creator<WorkoutPlan>() {
@@ -48,7 +51,7 @@ public class WorkoutPlan implements Parcelable {
 //https://stackoverflow.com/questions/6300608/how-to-pass-a-parcelable-object-that-contains-a-list-of-objects Credit for better understanding to parse object list
               parcel.writeString(getName());
               parcel.writeList(getExercises());
-
+              parcel.writeInt(getProgress());
        }
 
        public String getName() {
@@ -73,5 +76,17 @@ public class WorkoutPlan implements Parcelable {
 
        public void setGroup(String group) {
               this.group = group;
+       }
+
+       public int getProgress() {
+              return progress;
+       }
+
+       public void setProgress(int progress) {
+              this.progress = progress;
+       }
+
+       public void incrementProgress() {
+              this.progress += 1;
        }
 }

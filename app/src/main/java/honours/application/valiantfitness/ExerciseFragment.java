@@ -38,6 +38,7 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
 
   private Exercise exercise;
 
+
   private Context context;
    //private ExerciseRepository exerciseRepository;
    private static final String TAG = "ExerciseFragment";
