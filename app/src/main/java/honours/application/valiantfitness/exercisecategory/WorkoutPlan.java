@@ -22,6 +22,9 @@ public class WorkoutPlan implements Parcelable {
               this.progress = 0;
        }
 
+
+
+
        protected WorkoutPlan(Parcel in) {
               name = in.readString();
               exercises = in.createTypedArrayList(Exercise.CREATOR);

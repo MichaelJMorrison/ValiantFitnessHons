@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -207,6 +208,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         btnCreate.setOnClickListener(this);
         Button btnPlan = view.findViewById(R.id.btnPlan);
         btnPlan.setOnClickListener(this);
+
     }
     @Override
     public void onClick(View view) {
@@ -219,14 +221,21 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
                 swapRecyclers(view);
                 break;
             case R.id.btnCreate:
+                AppCompatActivity activity = (AppCompatActivity) getContext();
 
-            hideViewer(view);
+
+                WorkoutPlanCreatorFragment workoutPlanCreatorFragment = new WorkoutPlanCreatorFragment();
+
+
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, workoutPlanCreatorFragment).commit();
+
                 break;
             case R.id.btnPlan:
                 this.mode = "Plan";
                 showViewer(view);
                 swapRecyclers(view);
                 break;
+
             default:
                 break;
 
