@@ -61,8 +61,8 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
         View itemView = LayoutInflater.from(context).inflate(R.layout.exercisecategoryitem, parent, false);
 
 
-        ExerciseViewHolder stockViewHolder = new ExerciseViewHolder(itemView, this);
-        return stockViewHolder;
+        ExerciseViewHolder exerciseViewHolder = new ExerciseViewHolder(itemView, this);
+        return exerciseViewHolder;
 
     }
 

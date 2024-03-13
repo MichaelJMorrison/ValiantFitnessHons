@@ -104,8 +104,8 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
             this.exercise = new ExerciseSetData();
             txtWeight = itemView.findViewById(R.id.txtWeight);
             txtReps = itemView.findViewById(R.id.txtReps);
-            itemView.findViewById(R.id.btnAddSet).setOnClickListener(this);
-            itemView.findViewById(R.id.btnRemoveSet).setOnClickListener(this);
+            itemView.findViewById(R.id.btnAddExercise).setOnClickListener(this);
+            itemView.findViewById(R.id.btnRemoveExercise).setOnClickListener(this);
             txtWeight.addTextChangedListener(textWatcher);
             txtReps.addTextChangedListener(textWatcher);
 
@@ -152,12 +152,12 @@ public class ExercisePageAdapter extends RecyclerView.Adapter<ExercisePageAdapte
 
 
 
-            if (view.getId() == R.id.btnAddSet) {
+            if (view.getId() == R.id.btnAddExercise) {
 
                this.adapter.addExercise(new ExerciseSetData());
             }
 
-            if (view.getId() == R.id.btnRemoveSet) {
+            if (view.getId() == R.id.btnRemoveExercise) {
 
                 if (getItemCount() != 1) {
                     this.adapter.removeExercise(position);
