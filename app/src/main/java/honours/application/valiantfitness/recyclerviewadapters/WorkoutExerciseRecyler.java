@@ -15,6 +15,7 @@ import java.util.List;
 import honours.application.valiantfitness.R;
 import honours.application.valiantfitness.WorkoutPlanCreatorFragment;
 import honours.application.valiantfitness.exercisecategory.Exercise;
+import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 
 public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExerciseRecyler.ExerciseViewHolder> {
 
@@ -27,6 +28,20 @@ public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExercis
 
     private WorkoutPlanCreatorFragment fragment;
 
+    public void addExercise(Exercise exercise) {
+        this.exercises.add(exercise);
+        // notifyDataSetChanged();
+        notifyItemInserted(getItemCount());
+    }
+
+    public void removeExercise(int exercise) {
+        if (getItemCount() > 1) {
+            this.exercises.remove(exercise);
+
+            notifyItemRemoved(exercise);
+        }
+
+    }
 
     public WorkoutExerciseRecyler(Context context, List<Exercise> exercises, @NonNull View view, WorkoutPlanCreatorFragment fragment) {
         this.fragment = fragment;
@@ -69,18 +84,38 @@ public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExercis
             this.adapter = adapter;
             this.exerciseViewItem = itemView;
             itemView.findViewById(R.id.btnExerciseSelector).setOnClickListener(this);
+            itemView.findViewById(R.id.btnAddExerciseW).setOnClickListener(this);
+            itemView.findViewById(R.id.btnRemoveExerciseW).setOnClickListener(this);
         }
 
         public void onClick(View view) {
-            RecyclerView recyclerView= this.adapter.rootview.findViewById(R.id.rv_WorkoutSelector);
-            RecyclerView recyclerView2= this.adapter.rootview.findViewById(R.id.rv_ExerciseSelector);
-            Button buttonSave= this.adapter.rootview.findViewById(R.id.btnWorkoutSaveWorkout);
-            Button buttonCancel= this.adapter.rootview.findViewById(R.id.btnWorkoutCancel);
-            fragment.setPosition(this.getAdapterPosition());
-            buttonSave.setVisibility(View.GONE);
-            buttonCancel.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-            recyclerView2.setVisibility(View.VISIBLE);
+            int  position = this.getAdapterPosition();
+            if (view.getId() == R.id.btnExerciseSelector) {
+                RecyclerView recyclerView= this.adapter.rootview.findViewById(R.id.rv_WorkoutSelector);
+                RecyclerView recyclerView2= this.adapter.rootview.findViewById(R.id.rv_ExerciseSelector);
+                Button buttonSave= this.adapter.rootview.findViewById(R.id.btnWorkoutSaveWorkout);
+                Button buttonCancel= this.adapter.rootview.findViewById(R.id.btnWorkoutCancel);
+                fragment.setPosition(this.getAdapterPosition());
+                buttonSave.setVisibility(View.GONE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                recyclerView2.setVisibility(View.VISIBLE);
+
+            }else if (view.getId() == R.id.btnAddExerciseW) {
+
+                this.adapter.addExercise(new Exercise());
+
+            }else if (view.getId() == R.id.btnRemoveExerciseW) {
+
+                if (getItemCount() != 1) {
+                    this.adapter.removeExercise(position);
+                   // Button button = view.findViewById(R.id.btnExerciseSelector);
+                   // button.setText("EXERCISE");
+
+
+                }
+            }
+
         }
 
     }

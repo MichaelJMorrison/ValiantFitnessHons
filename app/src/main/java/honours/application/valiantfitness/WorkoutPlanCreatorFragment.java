@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import honours.application.valiantfitness.recyclerviewadapters.ExerciseSelectorR
 import honours.application.valiantfitness.recyclerviewadapters.WorkoutExerciseRecyler;
 
 
-public class WorkoutPlanCreatorFragment extends Fragment {
+public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClickListener {
 
 
     private String name;
@@ -30,6 +31,9 @@ public class WorkoutPlanCreatorFragment extends Fragment {
     private int position;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
+
+    private Button buttonSave;
+    private Button buttonCancel;
 
     public WorkoutPlanCreatorFragment() {
         // Required empty public constructor
@@ -73,6 +77,7 @@ public class WorkoutPlanCreatorFragment extends Fragment {
         }
        this.exerciseList = new ArrayList<>();
        this.exerciseList.add(new Exercise());
+
     }
 
     @Override
@@ -96,8 +101,20 @@ public class WorkoutPlanCreatorFragment extends Fragment {
         LinearLayoutManager layoutManager2  = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
        recyclerView2.setLayoutManager(layoutManager2);
+       buttonSave= view.findViewById(R.id.btnWorkoutSaveWorkout);
+       buttonCancel= view.findViewById(R.id.btnWorkoutCancel);
+        buttonSave.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
     }
-
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btnWorkoutCancel) {
+            buttonSave.setVisibility(View.VISIBLE);
+            buttonCancel.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView2.setVisibility(View.GONE);
+        }
+    }
     public int getPosition() {
         return position;
     }
