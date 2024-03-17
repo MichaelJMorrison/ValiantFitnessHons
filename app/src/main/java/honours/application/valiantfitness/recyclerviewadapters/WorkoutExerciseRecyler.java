@@ -42,6 +42,12 @@ public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExercis
         }
 
     }
+    public void updateExercise(Exercise exercise) {
+        this.exercises.set(this.fragment.getPosition(),exercise);
+        notifyDataSetChanged();
+    }
+
+
 
     public WorkoutExerciseRecyler(Context context, List<Exercise> exercises, @NonNull View view, WorkoutPlanCreatorFragment fragment) {
         this.fragment = fragment;
@@ -64,7 +70,22 @@ public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExercis
     @Override
     public void onBindViewHolder(@NonNull WorkoutExerciseRecyler.ExerciseViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
+        Button btnExercise = holder.itemView.findViewById(R.id.btnExerciseSelector);
+        if (exercise.getName() != "") {
 
+            btnExercise.setText(exercise.getName());
+        }else {
+            btnExercise.setText("SELECT EXERCISE");
+        }
+
+    }
+
+    public View getRootview() {
+        return rootview;
+    }
+
+    public void setRootview(View rootview) {
+        this.rootview = rootview;
     }
 
     @Override
@@ -87,6 +108,8 @@ public class WorkoutExerciseRecyler  extends RecyclerView.Adapter<WorkoutExercis
             itemView.findViewById(R.id.btnAddExerciseW).setOnClickListener(this);
             itemView.findViewById(R.id.btnRemoveExerciseW).setOnClickListener(this);
         }
+
+
 
         public void onClick(View view) {
             int  position = this.getAdapterPosition();

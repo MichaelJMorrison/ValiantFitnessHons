@@ -20,7 +20,9 @@ public class Exercise implements Parcelable {
         this.Mode = mode;
     }
 
-    public Exercise(){};
+    public Exercise(){
+        this.name = "";
+    };
 
     protected Exercise(Parcel in) {
 

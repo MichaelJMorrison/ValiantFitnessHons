@@ -70,6 +70,7 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <RadioGroup
+        android:id="@+id/rbGroupWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -84,7 +85,7 @@
             android:id="@+id/rbBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Body Only" />
+            android:text="Body" />
 
         <RadioButton
             android:id="@+id/rbEquipment"

@@ -8,17 +8,31 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import honours.application.valiantfitness.exercisecategory.Exercise;
+import honours.application.valiantfitness.exercisedata.ExerciseRepository;
+import honours.application.valiantfitness.exercisedata.ExerciseSetData;
+import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseSelectorRecycler;
 import honours.application.valiantfitness.recyclerviewadapters.WorkoutExerciseRecyler;
+import honours.application.valiantfitness.workoutdata.WorkoutData;
+import honours.application.valiantfitness.workoutdata.WorkoutExerciseRepository;
+import honours.application.valiantfitness.workoutdata.WorkoutExercises;
+import honours.application.valiantfitness.workoutdata.WorkoutRepository;
 
 
 public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClickListener {
@@ -28,12 +42,19 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
     private String Group;
     private List<Exercise> exerciseList;
 
+    private static final String TAG = "WorkoutPlanCreatorFragment";
     private int position;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
 
     private Button buttonSave;
     private Button buttonCancel;
+
+    private EditText txtWorkoutInputName;
+    private String DeviceID;
+
+    private RadioGroup rbGroupWorkout;
+
 
     public WorkoutPlanCreatorFragment() {
         // Required empty public constructor
@@ -77,7 +98,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         }
        this.exerciseList = new ArrayList<>();
        this.exerciseList.add(new Exercise());
-
+       this.DeviceID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     @Override
@@ -93,7 +114,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        ExerciseSelectorRecycler exerciseSelectorRecycler = new ExerciseSelectorRecycler(getContext(),getAllExercises());
+        ExerciseSelectorRecycler exerciseSelectorRecycler = new ExerciseSelectorRecycler(getContext(),getAllExercises(),workoutPreviewRecycler);
 
         recyclerView2 = view.findViewById(R.id.rv_ExerciseSelector);
         recyclerView2.setAdapter(exerciseSelectorRecycler);
@@ -101,6 +122,11 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         LinearLayoutManager layoutManager2  = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
        recyclerView2.setLayoutManager(layoutManager2);
+
+       txtWorkoutInputName= view.findViewById(R.id.txtWorkoutInputName);
+        rbGroupWorkout= view.findViewById(R.id.rbGroupWorkout);
+
+
        buttonSave= view.findViewById(R.id.btnWorkoutSaveWorkout);
        buttonCancel= view.findViewById(R.id.btnWorkoutCancel);
         buttonSave.setOnClickListener(this);
@@ -114,7 +140,66 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
             recyclerView.setVisibility(View.VISIBLE);
             recyclerView2.setVisibility(View.GONE);
         }
+        if (view.getId() == R.id.btnWorkoutSaveWorkout) {
+            if (ValidationPass() == true){
+                Log.d(TAG,"VALIDATION SUCCESS");
+
+                try{
+                    WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
+                    WorkoutExerciseRepository workoutExerciseRepository = new WorkoutExerciseRepository(getContext());
+                    WorkoutData workoutData = new WorkoutData(txtWorkoutInputName.getText().toString());
+
+                    RadioButton radioButton = rbGroupWorkout.findViewById(rbGroupWorkout.getCheckedRadioButtonId());
+
+                    workoutData.setGroup(radioButton.getText().toString());
+                    Log.d(TAG,radioButton.getText().toString());
+                    long id = workoutRepository.AddWorkout(workoutData);
+
+                    for (Exercise exercise:exerciseList) {
+                        WorkoutExercises workoutExercise = new WorkoutExercises();
+                        workoutExercise.setWorkoutID(id);
+                        workoutExercise.setName(exercise.getName());
+                        workoutExercise.setMode(exercise.getMode());
+
+                        Log.d(TAG, workoutExercise.toString());
+                        workoutExerciseRepository.AddWorkoutSet(workoutExercise);
+                    }
+
+                }catch (Error error) {
+                    Log.d(TAG, "LOGGING FAILED, ERROR ");
+                    error.printStackTrace();
+                }finally {
+                    Log.d(TAG,"WORKOUT CREATED");
+                }
+            }else{
+                Log.d(TAG,"VALIDATION FAILURE");
+            }
+        }
     }
+
+    public boolean ValidationPass(){
+
+       if(this.exerciseList.size()<0){
+           return false;
+       }
+
+       if(txtWorkoutInputName.getText().length()<0) {
+           return false;
+       }
+
+       if (rbGroupWorkout.getCheckedRadioButtonId() == -1) {
+           return  false;
+       }
+
+        for (Exercise exercise:this.exerciseList) {
+            if (exercise.getName() =="") {
+                return false;
+            }
+        }
+
+       return true;
+    };
+
     public int getPosition() {
         return position;
     }
@@ -129,4 +214,8 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workout_plan_creator, container, false);
     }
+
+
+
+
 }

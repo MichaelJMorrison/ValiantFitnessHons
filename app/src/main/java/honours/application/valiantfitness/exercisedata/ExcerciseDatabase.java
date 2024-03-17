@@ -7,11 +7,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import honours.application.valiantfitness.workoutdata.WorkoutDao;
+import honours.application.valiantfitness.workoutdata.WorkoutData;
+
 @Database(entities = {ExerciseData.class,ExerciseSetData.class}, version = 2)
 @TypeConverters({Converters.class})
-abstract class ExcerciseDatabase extends RoomDatabase {
+public abstract class ExcerciseDatabase extends RoomDatabase {
     public abstract ExerciseDao exerciseDao();
     public abstract ExerciseSetDao exerciseSetDao();
+
+    //public abstract WorkoutDao workoutDao();
     private static ExcerciseDatabase INSTANCE;
 
     public static ExcerciseDatabase getDatabase(final Context context){
