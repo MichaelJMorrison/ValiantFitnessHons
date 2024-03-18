@@ -89,6 +89,9 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
         this.context = getContext();
         TextView textTitle = view.findViewById(R.id.txtExerciseTitle);
         textTitle.setText(this.exercise.getName());
+        TextView textDesc = view.findViewById(R.id.txtExerciseDescription);
+        textDesc.setText(this.exercise.getDescription());
+
 
         this.exerciseRecycler = view.findViewById(R.id.rv_ExerciseSet);
         RVAdapter = new ExercisePageAdapter(getContext(),this.exercisesCompleted);

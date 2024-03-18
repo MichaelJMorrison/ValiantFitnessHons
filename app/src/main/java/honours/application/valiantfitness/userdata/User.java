@@ -7,7 +7,9 @@ public class User {
 
     private int profileImage;
 
-    private String description;
+    private String name;
+
+
 
     private String biography;
 
@@ -39,13 +41,7 @@ public class User {
         this.profileImage = profileImage;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getBiography() {
         return biography;
@@ -61,5 +57,13 @@ public class User {
 
     public void setDeviceID(String deviceID) {
         this.deviceID = deviceID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

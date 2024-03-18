@@ -137,9 +137,12 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
         List<Exercise> exercises = new ArrayList<>();
 
         for (Exercise exercise : this.adapter.exercises) {
-           if (exercise.getMode() == exerciseCategory.getEquipmentType() && exercise.getGroup() == exerciseCategory.getGroup()) {
-               exercises.add(exercise);
-           }
+
+
+            if((exercise.getMode().equals(exerciseCategory.getEquipmentType())) && exercise.getGroup().equals(exerciseCategory.getGroup())){
+                exercises.add(exercise);
+            }
+
 
         }
 

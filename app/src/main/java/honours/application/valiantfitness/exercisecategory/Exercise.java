@@ -20,6 +20,13 @@ public class Exercise implements Parcelable {
         this.Mode = mode;
     }
 
+    public Exercise(String name, String group, String mode, String description) {
+        this.name = name;
+        this.Group = group;
+        this.Mode = mode;
+        this.description = description;
+    }
+
     public Exercise(){
         this.name = "";
     };
@@ -36,6 +43,7 @@ public class Exercise implements Parcelable {
 
 
             exercise.setName(in.readString());
+            exercise.setDescription(in.readString());
 
             return  exercise;
         }
@@ -105,6 +113,19 @@ public class Exercise implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         //  out.writeLong(getId());
         parcel.writeString(getName());
+        parcel.writeString(getDescription());
 
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "name='" + name + '\'' +
+                ", repetitionCompleted=" + repetitionCompleted +
+                ", weight=" + weight +
+                ", description='" + description + '\'' +
+                ", Group='" + Group + '\'' +
+                ", Mode='" + Mode + '\'' +
+                '}';
     }
 }

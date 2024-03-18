@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +28,14 @@ import org.w3c.dom.Text;
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisecategory.ExerciseCategory;
 import honours.application.valiantfitness.exercisecategory.WorkoutPlan;
+import honours.application.valiantfitness.exercisedata.ExerciseRepository;
+import honours.application.valiantfitness.files.FileExtractor;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseIndividualRecyclerAdapter;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseReyclerAdapter;
+import honours.application.valiantfitness.workoutdata.WorkoutData;
+import honours.application.valiantfitness.workoutdata.WorkoutExerciseRepository;
+import honours.application.valiantfitness.workoutdata.WorkoutExercises;
+import honours.application.valiantfitness.workoutdata.WorkoutRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,27 +58,19 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
     private ExerciseReyclerAdapter RVAdapter;
     private ExerciseReyclerAdapter RVAdapter2;
     private ExerciseIndividualRecyclerAdapter RVAdapter3;
+    private static final String TAG = "WorkoutFragment";
+    String deviceId;
 
     private String mode;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+
 
     public WorkoutFragment() {
         // Required empty public constructor
         this.mode = "Exercise";
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WorkoutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WorkoutFragment newInstance(String param1, String param2) {
+       public static WorkoutFragment newInstance() {
         WorkoutFragment fragment = new WorkoutFragment();
         Bundle args = new Bundle();
 
@@ -81,7 +81,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
     }
 
@@ -163,6 +163,16 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         return exercises;
     }
 
+    public List<Exercise> getAllExercisesFile(View view) {
+
+
+        FileExtractor fileExtractor = new FileExtractor(view);
+
+
+
+        return fileExtractor.extractFile();
+
+    }
     public List<ExerciseCategory> getWorkoutEquipment(){
 
         List<ExerciseCategory> ECL;
@@ -170,6 +180,30 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         ECL.add(new ExerciseCategory("Upper Body Rush","Chest","Workout"));
         ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout",new WorkoutPlan("Insanity Run",getAllExercises(),"Cardio")));
+        WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
+
+        WorkoutExerciseRepository workoutExerciseRepository = new WorkoutExerciseRepository(getContext());
+        List<WorkoutData> workoutData = workoutRepository.GetWorkoutFromDeviceID(deviceId);
+        Log.d(TAG,workoutData.toString());
+        for (WorkoutData workoutDataExtract:workoutData
+             ) {
+            List<WorkoutExercises> workoutExercises = workoutExerciseRepository.GetAllExerciseSetDataFromExerciseID(workoutDataExtract.getID());
+
+            List<Exercise> exercises = new ArrayList<>();
+
+            for (WorkoutExercises workoutExercise:workoutExercises
+                 ) {
+                Exercise exercise = new Exercise();
+                exercise.setName(workoutExercise.getName());
+                exercise.setMode(workoutExercise.getMode());
+                exercises.add(exercise);
+            }
+
+            WorkoutPlan workoutPlan = new WorkoutPlan(workoutDataExtract.getName(),exercises,workoutDataExtract.getGroup());
+                ECL.add(new ExerciseCategory(workoutPlan.getName(),workoutPlan.getGroup(),"Workout",workoutPlan));
+        }
+
+
         return  ECL;
     };
 
@@ -182,8 +216,10 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         exerciseRecyler2 = view.findViewById(R.id.rv_Exercise2);
         exerciseRecyler3 = view.findViewById(R.id.rv_Exercise3);
 
-        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2,view,getAllExercises());
-        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList,view,getAllExercises());
+        List<Exercise> exerciseList = getAllExercisesFile(view);
+
+        RVAdapter = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList2,view,exerciseList);
+        RVAdapter2 = new ExerciseReyclerAdapter(getContext(),exerciseCategoryList,view,exerciseList);
 
         exerciseRecyler.setAdapter(RVAdapter);
         exerciseRecyler2.setAdapter(RVAdapter2);
@@ -222,6 +258,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnCreate:
                 AppCompatActivity activity = (AppCompatActivity) getContext();
+
 
 
                 WorkoutPlanCreatorFragment workoutPlanCreatorFragment = new WorkoutPlanCreatorFragment();

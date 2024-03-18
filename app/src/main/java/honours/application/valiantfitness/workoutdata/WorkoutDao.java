@@ -26,6 +26,9 @@ public interface WorkoutDao {
     @Query("Select * from WorkoutData WHERE name like :name")
     public List<WorkoutData> getWorkoutFromName(String name);
 
+    @Query("Select * from WorkoutData WHERE deviceID like :deviceID")
+    public List<WorkoutData> getWorkoutFromDeviceID(String deviceID);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(WorkoutData workoutData);
 

@@ -32,6 +32,10 @@ public class WorkoutRepository {
         return this.workoutDao.getWorkoutFromName(name);
     }
 
+    public List<WorkoutData> GetWorkoutFromDeviceID(String deviceID) {
+        return this.workoutDao.getWorkoutFromDeviceID(deviceID);
+    }
+
     public void DeleteWorkout(WorkoutData exerciseData) {
         this.workoutDao.delete(exerciseData);
     }

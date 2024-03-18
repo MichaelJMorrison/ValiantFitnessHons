@@ -152,6 +152,9 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
                     RadioButton radioButton = rbGroupWorkout.findViewById(rbGroupWorkout.getCheckedRadioButtonId());
 
                     workoutData.setGroup(radioButton.getText().toString());
+
+                    workoutData.setDeviceID(this.DeviceID);
+
                     Log.d(TAG,radioButton.getText().toString());
                     long id = workoutRepository.AddWorkout(workoutData);
 

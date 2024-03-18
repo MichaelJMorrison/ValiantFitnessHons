@@ -62,7 +62,7 @@
         android:layout_width="56dp"
         android:layout_height="48dp"
         android:contentDescription="@string/app_name"
-        android:src="@android:drawable/ic_menu_manage"
+        android:src="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.956"
