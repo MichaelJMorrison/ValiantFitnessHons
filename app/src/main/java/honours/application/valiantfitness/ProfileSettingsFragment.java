@@ -1,5 +1,7 @@
 package honours.application.valiantfitness;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,7 +14,10 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -140,7 +145,28 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
 
        switch (view.getId()) {
            case R.id.btnProfileCancel:
+               AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+               builder1.setMessage("Are you sure wish to continue? All changes will be lost");
+               builder1.setTitle("Profile Settings");
+               builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       AppCompatActivity activity = (AppCompatActivity) getActivity();
+                       Fragment fragment = new ProfileFragment();
+                       FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_Layout,fragment);
+                       fragmentTransaction.commit();
+                   }
+               });
+               builder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
 
+                   }
+               });
+               AlertDialog dialog1 = builder1.create();
+               dialog1.show();
                break;
            case R.id.btnPictureSelect:
                pickMedia.launch(new PickVisualMediaRequest.Builder()
@@ -180,8 +206,38 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
                         error.printStackTrace();
                     }finally {
                         Log.d(TAG, "Profile Saved");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Profile Details Saved!");
+                        builder.setTitle("Profile Settings");
+                        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                AppCompatActivity activity = (AppCompatActivity) getActivity();
+                                Fragment fragment = new ProfileFragment();
+                                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_Layout,fragment);
+                                fragmentTransaction.commit();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
+                }else{
+                    Log.d(TAG, "Validation failed");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Please make sure you all details have been entered and an image has been selected");
+                    builder.setTitle("Profile Saving Failed");
+                    builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
+
                break;
            default:
                break;

@@ -32,6 +32,7 @@ import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisedata.ExerciseRepository;
 import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
+import honours.application.valiantfitness.files.FileExtractor;
 import honours.application.valiantfitness.recyclerviewadapters.ExerciseSelectorRecycler;
 import honours.application.valiantfitness.recyclerviewadapters.WorkoutExerciseRecyler;
 import honours.application.valiantfitness.workoutdata.WorkoutData;
@@ -65,26 +66,18 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         // Required empty public constructor
     }
 
-    public List<Exercise> getAllExercises(){
+    public List<Exercise> getAllExercises(View view){
 
-        List<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise("Bench Press","Chest","Equipment"));
-        exercises.add(new Exercise("Curved Barbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Dumbbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Dumbbell Press","Chest","Equipment"));
-        exercises.add(new Exercise("Barbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Lateral Raises","Shoulders","Equipment"));
-        exercises.add(new Exercise("Lateral Pulldown","Back","Equipment"));
-        exercises.add(new Exercise("Weighted Squat","Legs","Equipment"));
-        exercises.add(new Exercise("Calve Raises","Legs","Equipment"));
-        exercises.add(new Exercise("Unweighted Squat","Legs","Body"));
-        exercises.add(new Exercise("Press ups","Chest","Body"));
-        exercises.add(new Exercise("Weighted Bulgarian Legs","Legs","Equipment"));
-        exercises.add(new Exercise("Unweighted Bulgarian Legs","Legs","Body"));
-        exercises.add(new Exercise("Sit Ups","Abs","Body"));
-        exercises.add(new Exercise("Plank","Abs","Body"));
-        exercises.add(new Exercise("Shoulder Press","Shoulders","Equipment"));
-        return exercises;
+
+
+            FileExtractor fileExtractor = new FileExtractor(view);
+
+
+
+            return fileExtractor.extractFile();
+
+
+
     }
 
     public static WorkoutPlanCreatorFragment newInstance(String param1, String param2) {
@@ -119,7 +112,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
         LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        ExerciseSelectorRecycler exerciseSelectorRecycler = new ExerciseSelectorRecycler(getContext(),getAllExercises(),workoutPreviewRecycler);
+        ExerciseSelectorRecycler exerciseSelectorRecycler = new ExerciseSelectorRecycler(getContext(),getAllExercises(view),workoutPreviewRecycler);
 
         recyclerView2 = view.findViewById(R.id.rv_ExerciseSelector);
         recyclerView2.setAdapter(exerciseSelectorRecycler);
@@ -146,6 +139,8 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
             recyclerView2.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.btnWorkoutSaveWorkout) {
+
+
             if (ValidationPass() == true){
                 Log.d(TAG,"VALIDATION SUCCESS");
 
@@ -237,6 +232,8 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
 
        return true;
     };
+
+
 
     public int getPosition() {
         return position;
