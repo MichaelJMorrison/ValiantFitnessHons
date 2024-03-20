@@ -1,27 +1,33 @@
 package honours.application.valiantfitness.userdata;
 
+import android.graphics.Bitmap;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "User")
 public class User {
 
-    private Integer id;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String  UserName;
 
-    private int profileImage;
+    private Bitmap profileImage;
 
     private String name;
-
-
-
     private String biography;
 
     private String deviceID;
 
     public User () { }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,11 +39,11 @@ public class User {
         UserName = userName;
     }
 
-    public int getProfileImage() {
+    public Bitmap getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(int profileImage) {
+    public void setProfileImage(Bitmap profileImage) {
         this.profileImage = profileImage;
     }
 

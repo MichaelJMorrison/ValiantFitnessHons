@@ -1,6 +1,8 @@
 package honours.application.valiantfitness;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -110,29 +112,68 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
             case R.id.btnLog:
                 //Time to access Recycler Data
               //  Log.d(TAG, exercisesCompleted.toString());
-                if (exercisesCompleted.size() >= 0) {
-                    ExerciseData exerciseData = new ExerciseData(exercise.getName());
-                    exerciseData.setDeviceID(android_id);
-                    exerciseData.setDate(new Date());
-                  //  Log.d(TAG, exerciseData.toString());
-                    try {
-                         ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
-                         ExerciseSetRepository exerciseSetRepository = new ExerciseSetRepository(getContext());
 
 
-                         long id = exerciseRepository.AddExercise(exerciseData); //(not activating till I add history section)
-                        exerciseData.setID(id);
-                        Log.d(TAG, exerciseData.toString());
-                        for (ExerciseSetData exerciseSetData:exercisesCompleted) {
-                            exerciseSetData.setExerciseID(id);
-                            Log.d(TAG, exerciseSetData.toString());
-                            exerciseSetRepository.AddExerciseSet(exerciseSetData);
-                        }
-                    }catch (Error e) {
-                        Log.d(TAG, "LOGGING FAILED, ERROR ");
-                        e.printStackTrace();
-                    }finally {
-                        Log.d(TAG, "LOGGING SUCCESSFUL ");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Are you sure you wish to save this exercise?");
+                builder.setTitle(this.exercise.getName());
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    LogProgress();
+                    }
+
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public void LogProgress(){
+        if (exercisesCompleted.size() >= 0) {
+            ExerciseData exerciseData = new ExerciseData(exercise.getName());
+            exerciseData.setDeviceID(android_id);
+            exerciseData.setDate(new Date());
+            //  Log.d(TAG, exerciseData.toString());
+            try {
+                ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
+                ExerciseSetRepository exerciseSetRepository = new ExerciseSetRepository(getContext());
+
+
+                long id = exerciseRepository.AddExercise(exerciseData); //(not activating till I add history section)
+                exerciseData.setID(id);
+                Log.d(TAG, exerciseData.toString());
+                for (ExerciseSetData exerciseSetData:exercisesCompleted) {
+                    exerciseSetData.setExerciseID(id);
+                    Log.d(TAG, exerciseSetData.toString());
+                    exerciseSetRepository.AddExerciseSet(exerciseSetData);
+                }
+            }catch (Error e) {
+                Log.d(TAG, "LOGGING FAILED, ERROR ");
+                e.printStackTrace();
+            }finally {
+                Log.d(TAG, "LOGGING SUCCESSFUL ");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Workout Exercise Saved!");
+                builder.setTitle(this.exercise.getName());
+                builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
                         AppCompatActivity activity = (AppCompatActivity) getActivity();
                         Fragment fragment = new WorkoutFragment();
                         FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -140,13 +181,10 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
                         fragmentTransaction.replace(R.id.frame_Layout,fragment);
                         fragmentTransaction.commit();
                     }
-                }
-
-
-                break;
-            default:
-                break;
-
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         }
     }
 

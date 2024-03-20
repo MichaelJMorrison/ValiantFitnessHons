@@ -137,7 +137,10 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
         ECL.add(new ExerciseCategory("Abs Basic","Abs","Workout"));
-
+        for (ExerciseCategory exerciseCategory:getCreatedExerciseList("Body")
+        ) {
+            ECL.add(exerciseCategory);
+        }
         return  ECL;
     };
 
@@ -180,32 +183,49 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         ECL.add(new ExerciseCategory("Upper Body Rush","Chest","Workout"));
         ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout",new WorkoutPlan("Insanity Run",getAllExercises(),"Cardio")));
+
+        for (ExerciseCategory exerciseCategory:getCreatedExerciseList("Equipment")
+        ) {
+            ECL.add(exerciseCategory);
+        }
+
+
+            return  ECL;
+    };
+
+    public List<ExerciseCategory> getCreatedExerciseList(String group) {
+
+        List<ExerciseCategory> exerciseCategories = new ArrayList<>();
+
         WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
 
         WorkoutExerciseRepository workoutExerciseRepository = new WorkoutExerciseRepository(getContext());
         List<WorkoutData> workoutData = workoutRepository.GetWorkoutFromDeviceID(deviceId);
         Log.d(TAG,workoutData.toString());
         for (WorkoutData workoutDataExtract:workoutData
-             ) {
-            List<WorkoutExercises> workoutExercises = workoutExerciseRepository.GetAllExerciseSetDataFromExerciseID(workoutDataExtract.getID());
+        ) {
+            Log.d(TAG,workoutDataExtract.getGroup());
+            if (workoutDataExtract.getGroup().toString().equals(group)) {
+                List<WorkoutExercises> workoutExercises = workoutExerciseRepository.GetAllExerciseSetDataFromExerciseID(workoutDataExtract.getID());
 
-            List<Exercise> exercises = new ArrayList<>();
+                List<Exercise> exercises = new ArrayList<>();
 
-            for (WorkoutExercises workoutExercise:workoutExercises
-                 ) {
-                Exercise exercise = new Exercise();
-                exercise.setName(workoutExercise.getName());
-                exercise.setMode(workoutExercise.getMode());
-                exercises.add(exercise);
+                for (WorkoutExercises workoutExercise:workoutExercises
+                ) {
+                    Exercise exercise = new Exercise();
+                    exercise.setName(workoutExercise.getName());
+                    exercise.setMode(workoutExercise.getMode());
+                    exercises.add(exercise);
+                }
+
+                WorkoutPlan workoutPlan = new WorkoutPlan(workoutDataExtract.getName(),exercises,workoutDataExtract.getGroup());
+                exerciseCategories.add(new ExerciseCategory(workoutPlan.getName(),workoutPlan.getGroup(),"Workout",workoutPlan));
             }
 
-            WorkoutPlan workoutPlan = new WorkoutPlan(workoutDataExtract.getName(),exercises,workoutDataExtract.getGroup());
-                ECL.add(new ExerciseCategory(workoutPlan.getName(),workoutPlan.getGroup(),"Workout",workoutPlan));
         }
 
-
-        return  ECL;
-    };
+        return exerciseCategories;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

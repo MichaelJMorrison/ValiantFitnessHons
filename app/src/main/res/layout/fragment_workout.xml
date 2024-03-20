@@ -27,7 +27,7 @@
         android:text="Workouts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCreate"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/btnWorkout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
@@ -64,10 +64,10 @@
                 android:id="@+id/txtBodyType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="BY BODY TYPE"
+                android:layout_marginBottom="10dp"
+                android:text="BODY ONLY EXERCISES"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_Exercise"
@@ -81,10 +81,10 @@
                 android:id="@+id/txtByEquipment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="BY EQUIPMENT"
+                android:layout_marginBottom="10dp"
+                android:text="EQUIPMENT BASED EXERCISES"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_Exercise2"

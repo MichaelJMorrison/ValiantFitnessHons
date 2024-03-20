@@ -81,7 +81,7 @@ public class WorkoutPlanFragment extends Fragment implements View.OnClickListene
             AppCompatActivity activity = (AppCompatActivity) getContext();
             Bundle bundle = new Bundle();
             bundle.putParcelable(WorkoutExerciseFragment.ARG_WORKOUTPLAN, workoutPlan);
-            bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, this.workoutPlan.getExercises().get(1));
+            bundle.putParcelable(ExerciseFragment.ARG_EXERCISE, this.workoutPlan.getExercises().get(0));
             WorkoutExerciseFragment exerciseFragment = new WorkoutExerciseFragment();
             exerciseFragment.setArguments(bundle);
 

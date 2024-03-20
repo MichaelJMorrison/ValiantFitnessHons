@@ -1,10 +1,15 @@
 package honours.application.valiantfitness;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -147,6 +152,8 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
                 try{
                     WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
                     WorkoutExerciseRepository workoutExerciseRepository = new WorkoutExerciseRepository(getContext());
+
+
                     WorkoutData workoutData = new WorkoutData(txtWorkoutInputName.getText().toString());
 
                     RadioButton radioButton = rbGroupWorkout.findViewById(rbGroupWorkout.getCheckedRadioButtonId());
@@ -173,9 +180,37 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
                     error.printStackTrace();
                 }finally {
                     Log.d(TAG,"WORKOUT CREATED");
+                    //https://developer.android.com/develop/ui/views/components/dialogs#AlertDialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Workout plan has successfully been created!");
+                    builder.setTitle("Workout Plan");
+                    builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            AppCompatActivity activity = (AppCompatActivity) getActivity();
+                            Fragment fragment = new WorkoutFragment();
+                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame_Layout,fragment);
+                            fragmentTransaction.commit();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }else{
                 Log.d(TAG,"VALIDATION FAILURE");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Please make sure a name, type and all exercise items have an exercise selected before proceeding");
+                builder.setTitle("Workout plan failed to create");
+                builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         }
     }
@@ -186,7 +221,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
            return false;
        }
 
-       if(txtWorkoutInputName.getText().length()<0) {
+       if(txtWorkoutInputName.getText().length()==0) {
            return false;
        }
 
