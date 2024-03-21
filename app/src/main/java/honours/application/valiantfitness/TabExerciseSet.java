@@ -33,11 +33,7 @@ import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
 import honours.application.valiantfitness.recyclerviewadapters.ExercisePageAdapter;
 import android.provider.Settings.Secure;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TabExerciseSet#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TabExerciseSet extends Fragment implements View.OnClickListener{
 
     private Exercise exercise;

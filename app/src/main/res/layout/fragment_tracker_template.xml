@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TrackerTemplateFragment" >
+
+
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lcTrack"
+            android:layout_width="0dp"
+            android:layout_height="340dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.955" />
+
+        <TextView
+            android:id="@+id/txtObjective"
+            android:layout_width="332dp"
+            android:layout_height="50dp"
+            android:text="TRACKER"
+            android:textAlignment="textStart"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.265"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <TextView
+            android:id="@+id/txtHistory"
+            android:layout_width="175dp"
+            android:layout_height="39dp"
+            android:text="HISTORY"
+            android:textAlignment="textStart"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.441" />
+
+        <TextView
+            android:id="@+id/txtScore"
+            android:layout_width="266dp"
+            android:layout_height="79dp"
+            android:autoSizeTextType="uniform"
+            android:ems="10"
+            android:text="A"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/btnObjectiveRecord"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.869" />
+
+
+        <Button
+            android:id="@+id/btnObjectiveRecord"
+            android:layout_width="146dp"
+            android:layout_height="53dp"
+            android:text="RECORD"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.306" />
+
+        <EditText
+            android:id="@+id/txtNumberInput"
+            android:layout_width="266dp"
+            android:layout_height="79dp"
+            android:ems="10"
+            android:hint="0.00"
+            android:inputType="number"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/btnObjectiveRecord"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.869" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

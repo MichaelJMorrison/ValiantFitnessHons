@@ -2,46 +2,34 @@ package honours.application.valiantfitness;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TrackerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TrackerFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class TrackerFragment extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+    private Button WeightButton;
+
+    private Button CaloriesButton;
+
+    private  Button StepsButton;
 
     public TrackerFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TrackerFragment newInstance(String param1, String param2) {
         TrackerFragment fragment = new TrackerFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,8 +38,7 @@ public class TrackerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -60,5 +47,40 @@ public class TrackerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tracker, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.CaloriesButton = view.findViewById(R.id.CaloriesButton);
+        this.WeightButton = view.findViewById(R.id.WeightButton);
+        this.StepsButton = view.findViewById(R.id.StepsButton);
+        this.CaloriesButton.setOnClickListener(this);
+        this.WeightButton.setOnClickListener(this);
+        this.StepsButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        Bundle bundle = new Bundle();
+
+       switch (view.getId()){
+           case R.id.CaloriesButton:
+               bundle.putString(TrackerTemplateFragment.ARG_MODE,"Calories");
+               break;
+           case R.id.StepsButton:
+               bundle.putString(TrackerTemplateFragment.ARG_MODE,"Steps");
+               break;
+           case R.id.WeightButton:
+               bundle.putString(TrackerTemplateFragment.ARG_MODE,"Weight");
+               break;
+       }
+
+        TrackerTemplateFragment trackerTemplateFragment = new TrackerTemplateFragment();
+        trackerTemplateFragment.setArguments(bundle);
+
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, trackerTemplateFragment).commit();
     }
 }
