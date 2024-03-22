@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +125,11 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                    LogProgress();
+                        try {
+                            LogProgress();
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                 });
@@ -140,11 +146,18 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
         }
     }
 
-    public void LogProgress(){
+    public void LogProgress() throws ParseException {
         if (exercisesCompleted.size() >= 0) {
             ExerciseData exerciseData = new ExerciseData(exercise.getName());
             exerciseData.setDeviceID(android_id);
-            exerciseData.setDate(new Date());
+            //https://stackoverflow.com/questions/5050170/how-do-i-get-a-date-without-time-in-java
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                exerciseData.setDate(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
+            }catch (ParseException error) {
+
+            }
+
             //  Log.d(TAG, exerciseData.toString());
             try {
                 ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());

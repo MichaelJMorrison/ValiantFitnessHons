@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -219,7 +221,13 @@ public class WorkoutExerciseFragment extends Fragment implements View.OnClickLis
         if (exercisesCompleted.size() >= 0) {
             ExerciseData exerciseData = new ExerciseData(exercise.getName());
             exerciseData.setDeviceID(android_id);
-            exerciseData.setDate(new Date());
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                exerciseData.setDate(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
+            }catch (ParseException error) {
+
+            }
+            //exerciseData.setDate(new Date());
             //  Log.d(TAG, exerciseData.toString());
             try {
                 ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());

@@ -26,9 +26,11 @@ public interface TrackerDao {
     @Query("Select * from TrackerData WHERE dataName like :name")
     public List<TrackerData> getDataFromSection(String name);
 
+    @Query("Select * from TrackerData WHERE dataName like :name AND date =:date")
+    public TrackerData getDataFromDateMode(String name,Long date);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long insert(TrackerData user);
+    public long insert(TrackerData trackerData);
 
 }

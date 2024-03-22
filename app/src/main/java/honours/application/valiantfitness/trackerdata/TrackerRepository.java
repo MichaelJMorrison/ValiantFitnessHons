@@ -2,6 +2,7 @@ package honours.application.valiantfitness.trackerdata;
 
 import android.content.Context;
 
+import java.util.Date;
 import java.util.List;
 
 import honours.application.valiantfitness.userdata.User;
@@ -37,5 +38,10 @@ public class TrackerRepository {
 
     public void DeleteTrackedData(TrackerData trackerData) {
         this.trackerDao.delete(trackerData);
+    }
+
+    public TrackerData GetDataFromDateMode(String dataName, Date date) {
+
+        return this.trackerDao.getDataFromDateMode(dataName,date.getTime());
     }
 }

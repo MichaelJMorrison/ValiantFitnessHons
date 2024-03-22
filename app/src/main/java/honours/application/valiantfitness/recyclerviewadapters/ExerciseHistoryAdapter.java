@@ -50,13 +50,15 @@ public class ExerciseHistoryAdapter extends RecyclerView.Adapter<ExerciseHistory
     public void onBindViewHolder(@NonNull ExerciseHistoryAdapter.ExerciseViewHolder holder, int position) {
         ExerciseData exercise = exercises.get(position);
         TextView txtDate = holder.itemView.findViewById(R.id.txt_rv_date);
-       // txtDate.setText(exercise.getDate().toString());
 
-        txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(exercise.getDate()).toString());
+
+      txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(exercise.getDate()).toString());
+        //txtDate.setText((exercise.getDate()).toString());
+
         ExerciseSetRepository exerciseRepository = new ExerciseSetRepository(this.context);
         Log.d(TAG, exercise.toString());
         List<ExerciseSetData> setData = exerciseRepository.GetAllExerciseSetDataFromExerciseID(exercise.getID());
-       // List<ExerciseSetData> setData = exerciseRepository.getAllExerciseSetData();
+
         ExerciseHistorySetAdapter RVAdapter = new ExerciseHistorySetAdapter(holder.adapter.context,setData);
 
         RecyclerView recyclerView = holder.itemView.findViewById(R.id.rv_exercise_history_set);

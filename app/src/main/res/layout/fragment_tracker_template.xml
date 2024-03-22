@@ -46,10 +46,11 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintHorizontal_bias="0.088"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.441" />
+            app:layout_constraintVertical_bias="0.39" />
+
 
         <TextView
             android:id="@+id/txtScore"
@@ -60,12 +61,12 @@
             android:text="A"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/btnObjectiveRecord"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.869" />
-
+            app:layout_constraintBottom_toBottomOf="@+id/txtNumberInput"
+            app:layout_constraintEnd_toEndOf="@+id/txtNumberInput"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/txtNumberInput"
+            app:layout_constraintTop_toTopOf="@+id/txtNumberInput"
+            app:layout_constraintVertical_bias="0.338" />
 
         <Button
             android:id="@+id/btnObjectiveRecord"
@@ -75,9 +76,10 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.306" />
+            app:layout_constraintVertical_bias="0.301" />
 
         <EditText
             android:id="@+id/txtNumberInput"
@@ -89,10 +91,70 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/btnObjectiveRecord"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.869" />
+            app:layout_constraintVertical_bias="0.532" />
 
+        <TableLayout
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:stretchColumns="0,1,2"
+            app:layout_constraintBottom_toTopOf="@+id/lcTrack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtHistory"
+            app:layout_constraintVertical_bias="1.0">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dip"
+
+                            android:text="Current"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="Average"
+                            android:textStyle="bold" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtCurrent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dip"
+                             />
+
+                        <TextView
+                            android:id="@+id/txtAverage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dip"
+                             />
+
+
+                </TableRow>
+
+        </TableLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
