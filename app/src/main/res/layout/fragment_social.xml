@@ -7,51 +7,79 @@
     android:layout_height="match_parent"
     tools:context=".SocialFragment">
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="322dp"
-        android:layout_height="120dp"
-        android:text="SEARCH"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.343" />
-
-    <Button
-        android:id="@+id/btnSearchMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:text="SEARCH FOR HELP"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
 
     <Button
         android:id="@+id/btnFind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HELP SOMEONE"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:autoSizeTextType="uniform"
+        android:text="HELP A USER"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.733" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:autoSizeTextType="uniform"
+        android:text="SEARCH FOR HELP"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.732" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="346dp"
+        android:layout_height="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
+    <EditText
+        android:id="@+id/txtSocialDescription"
+        android:layout_width="346dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:maxLines="40"
+        android:scrollHorizontally="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <EditText
+        android:id="@+id/txtSearchLocation"
+        android:layout_width="346dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:maxLines="40"
+        android:scrollHorizontally="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.609" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

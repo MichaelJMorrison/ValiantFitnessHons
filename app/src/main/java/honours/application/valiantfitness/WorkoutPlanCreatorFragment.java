@@ -74,7 +74,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
 
 
 
-            return fileExtractor.extractFile();
+            return fileExtractor.extractExerciseFile();
 
 
 

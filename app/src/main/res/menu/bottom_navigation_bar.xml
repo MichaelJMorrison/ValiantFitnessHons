@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:title="Workout"
         android:id="@+id/Workout"
-        android:icon="@drawable/baseline_auto_awesome_motion_24"/>
+        android:icon="@drawable/curl"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

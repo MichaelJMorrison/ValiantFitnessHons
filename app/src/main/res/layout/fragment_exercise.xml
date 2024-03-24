@@ -33,18 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
-    <TextView
-        android:id="@+id/txtExerciseDescription"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ExerciseSet"
         android:layout_width="0dp"
@@ -79,6 +67,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="History" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/btnTabTutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guide" />
 
 
     </com.google.android.material.tabs.TabLayout>

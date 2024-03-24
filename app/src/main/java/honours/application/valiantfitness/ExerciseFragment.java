@@ -89,8 +89,7 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
         this.context = getContext();
         TextView textTitle = view.findViewById(R.id.txtExerciseTitle);
         textTitle.setText(this.exercise.getName());
-        TextView textDesc = view.findViewById(R.id.txtExerciseDescription);
-        textDesc.setText(this.exercise.getDescription());
+
 
 
         this.exerciseRecycler = view.findViewById(R.id.rv_ExerciseSet);
@@ -110,6 +109,7 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+
     switch (tab.getPosition()) {
         case 0:
             replaceFragment(new TabExerciseSet());
@@ -119,6 +119,9 @@ public class ExerciseFragment extends Fragment implements TabLayout.OnTabSelecte
         case 1:
             replaceFragment(new TabExerciseHistory());
         //  btnLog.setVisibility(View.GONE);
+            break;
+        case 2:
+            replaceFragment(new TabExerciseGuide());
         break;
     }
     }

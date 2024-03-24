@@ -14,6 +14,8 @@ public class Exercise implements Parcelable {
     String Group;
     String Mode;
 
+    String Image;
+
     public Exercise(String name, String group, String mode) {
         this.name = name;
         this.Group = group;

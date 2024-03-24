@@ -62,10 +62,11 @@
 
     <ImageButton
         android:id="@+id/btnSettings"
-        android:layout_width="56dp"
-        android:layout_height="48dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#00486CE2"
         android:contentDescription="@string/app_name"
-        android:src="@android:drawable/ic_menu_edit"
+        android:src="@drawable/baseline_brightness_low_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.956"

@@ -15,11 +15,21 @@ public class WorkoutPlan implements Parcelable {
        int progress;
        String group;
 
+       String image;
+
        public WorkoutPlan(String name, List<Exercise> exercises, String group) {
               this.name = name;
               this.exercises = exercises;
               this.group = group;
               this.progress = 0;
+       }
+
+       public WorkoutPlan(String name, String group, String image,List<Exercise> exercises) {
+              this.name = name;
+              this.group = group;
+              this.progress = 0;
+              this.image = image;
+              this.exercises = exercises;
        }
 
 
@@ -30,6 +40,7 @@ public class WorkoutPlan implements Parcelable {
               exercises = in.createTypedArrayList(Exercise.CREATOR);
               group = in.readString();
               progress = in.readInt();
+              image = in.readString();
        }
 
        public static final Creator<WorkoutPlan> CREATOR = new Creator<WorkoutPlan>() {
@@ -55,6 +66,7 @@ public class WorkoutPlan implements Parcelable {
               parcel.writeString(getName());
               parcel.writeList(getExercises());
               parcel.writeInt(getProgress());
+              parcel.writeString(getImage());
        }
 
        public String getName() {
@@ -91,5 +103,13 @@ public class WorkoutPlan implements Parcelable {
 
        public void incrementProgress() {
               this.progress += 1;
+       }
+
+       public String getImage() {
+              return image;
+       }
+
+       public void setImage(String image) {
+              this.image = image;
        }
 }

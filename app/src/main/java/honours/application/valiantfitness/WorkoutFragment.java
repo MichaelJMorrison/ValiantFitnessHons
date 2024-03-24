@@ -97,12 +97,12 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Arms","Arms","Exercise","Body"));
-        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise","Body"));
-        ECL.add(new ExerciseCategory("Chest","Chest","Exercise","Body"));
-        ECL.add(new ExerciseCategory("Legs","Legs","Exercise","Body"));
-        ECL.add(new ExerciseCategory("Back","Back","Exercise","Body"));
-        ECL.add(new ExerciseCategory("Abs","Abs","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Arms","Arms","arm","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Shoulders","Shoulders","shoulder","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Chest","Chest","core","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Legs","Legs","leg","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Back","Back","back","Exercise","Body"));
+        ECL.add(new ExerciseCategory("Abs","Abs","core","Exercise","Body"));
     return  ECL;
     };
 
@@ -110,33 +110,32 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Arms","Arms","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Shoulders","Shoulders","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Chest","Chest","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Legs","Legs","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Back","Back","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Abs","Abs","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Arms","Arms","arm","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Shoulders","Shoulders","shoulder","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Chest","Chest","core","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Legs","Legs","leg","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Back","Back","back","Exercise","Equipment"));
+        ECL.add(new ExerciseCategory("Abs","Abs","core","Exercise","Equipment"));
         return  ECL;
     };
 
-    public List<ExerciseCategory> getExerciseEquipment(){
 
-        List<ExerciseCategory> ECL;
-        ECL= new ArrayList<>();
-
-        ECL.add(new ExerciseCategory("Dumbbells","Chest","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Curved Barbell","Chest","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Smith Machine","Chest","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("Kettle Bell","Chest","Exercise","Equipment"));
-        ECL.add(new ExerciseCategory("No Equipment","Chest","Exercise","Equipment"));
-        return  ECL;
-    };
 
     public List<ExerciseCategory> getWorkoutBody(){
 
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
-        ECL.add(new ExerciseCategory("Abs Basic","Abs","Workout"));
+        FileExtractor fileExtractor = new FileExtractor(getView());
+        List<WorkoutPlan>workoutPlanList = fileExtractor.extractWorkoutFile();
+
+        for (WorkoutPlan workoutPlan:workoutPlanList
+             ) {
+            if(workoutPlan.getGroup().equals("Body")){
+                ECL.add(new ExerciseCategory(workoutPlan.getName(),workoutPlan.getGroup(),workoutPlan.getImage(),"Workout",workoutPlan));
+            }
+        }
+
+
         for (ExerciseCategory exerciseCategory:getCreatedExerciseList("Body")
         ) {
             ECL.add(exerciseCategory);
@@ -144,27 +143,6 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         return  ECL;
     };
 
-    public List<Exercise> getAllExercises(){
-
-        List<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise("Bench Press","Chest","Equipment"));
-        exercises.add(new Exercise("Curved Barbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Dumbbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Dumbbell Press","Chest","Equipment"));
-        exercises.add(new Exercise("Barbell Curl","Arms","Equipment"));
-        exercises.add(new Exercise("Lateral Raises","Shoulders","Equipment"));
-        exercises.add(new Exercise("Lateral Pulldown","Back","Equipment"));
-        exercises.add(new Exercise("Weighted Squat","Legs","Equipment"));
-        exercises.add(new Exercise("Calve Raises","Legs","Equipment"));
-        exercises.add(new Exercise("Unweighted Squat","Legs","Body"));
-        exercises.add(new Exercise("Press ups","Chest","Body"));
-        exercises.add(new Exercise("Weighted Bulgarian Legs","Legs","Equipment"));
-        exercises.add(new Exercise("Unweighted Bulgarian Legs","Legs","Body"));
-        exercises.add(new Exercise("Sit Ups","Abs","Body"));
-        exercises.add(new Exercise("Plank","Abs","Body"));
-        exercises.add(new Exercise("Shoulder Press","Shoulders","Equipment"));
-        return exercises;
-    }
 
     public List<Exercise> getAllExercisesFile(View view) {
 
@@ -173,7 +151,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
 
 
 
-        return fileExtractor.extractFile();
+        return fileExtractor.extractExerciseFile();
 
     }
     public List<ExerciseCategory> getWorkoutEquipment(){
@@ -181,8 +159,16 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener {
         List<ExerciseCategory> ECL;
         ECL= new ArrayList<>();
 
-        ECL.add(new ExerciseCategory("Upper Body Rush","Chest","Workout"));
-        ECL.add(new ExerciseCategory("Insanity Run","Cardio","Workout",new WorkoutPlan("Insanity Run",getAllExercises(),"Cardio")));
+        FileExtractor fileExtractor = new FileExtractor(getView());
+        List<WorkoutPlan>workoutPlanList = fileExtractor.extractWorkoutFile();
+
+        for (WorkoutPlan workoutPlan:workoutPlanList
+        ) {
+            if(workoutPlan.getGroup().equals("Equipment")){
+                ECL.add(new ExerciseCategory(workoutPlan.getName(),workoutPlan.getGroup(),workoutPlan.getImage(),"Workout",workoutPlan));
+            }
+        }
+
 
         for (ExerciseCategory exerciseCategory:getCreatedExerciseList("Equipment")
         ) {

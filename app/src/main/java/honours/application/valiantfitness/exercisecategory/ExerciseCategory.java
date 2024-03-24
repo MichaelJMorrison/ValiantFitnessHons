@@ -14,13 +14,22 @@ public class ExerciseCategory {
     WorkoutPlan workoutPlan;
 
     List<Exercise> exercises;
-    int Image; // Might work for image?
+    String Image; // Might work for image?
 
-    public ExerciseCategory(String name, String group, int image,String mode, String equipmentType) {
+    public ExerciseCategory(String name, String group, String image,String mode, WorkoutPlan workoutPlan) {
         this.name = name;
         this.group = group;
         this.Image = image;
         this.mode = mode;
+        this.workoutPlan = workoutPlan;
+    }
+
+    public ExerciseCategory(String name, String group, String image,String mode, String equipmentType) {
+        this.name = name;
+        this.group = group;
+        this.Image = image;
+        this.mode = mode;
+        this.equipmentType = equipmentType;
     }
 
     public ExerciseCategory(String name, String group) {
@@ -48,6 +57,14 @@ public class ExerciseCategory {
         this.group = group;
         this.mode = mode;
         this.workoutPlan = workoutPlan;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 
     public String getGroup() {

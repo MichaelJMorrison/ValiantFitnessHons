@@ -13,7 +13,7 @@
         android:layout_width="149dp"
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
-        android:backgroundTint="#654593"
+        android:backgroundTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
@@ -83,7 +83,7 @@
         android:layout_width="149dp"
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
-        android:backgroundTint="#654593"
+        android:backgroundTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/WeightConstraint"
         app:layout_constraintHorizontal_bias="0.19"
@@ -124,7 +124,7 @@
             android:layout_width="90dp"
             android:layout_height="134dp"
             android:indeterminateOnly="false"
-            android:progress="0"
+            android:progress="33"
             android:progressDrawable="@drawable/progresscircle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -137,12 +137,13 @@
             android:id="@+id/txtSteps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:text="2500"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.321"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="@+id/progressBar"
             app:layout_constraintTop_toTopOf="@+id/progressBar"
             app:layout_constraintVertical_bias="0.504" />
@@ -153,7 +154,7 @@
         android:layout_width="149dp"
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
-        android:backgroundTint="#654593"
+        android:backgroundTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
@@ -192,7 +193,7 @@
             android:id="@+id/CaloriesValue"
             android:layout_width="114dp"
             android:layout_height="36dp"
-            android:text="0"
+
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -234,7 +235,7 @@
         android:layout_width="149dp"
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
-        android:backgroundTint="#654593"
+        android:backgroundTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/BestConstraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.79"
@@ -273,7 +274,7 @@
             android:id="@+id/WeightValue"
             android:layout_width="114dp"
             android:layout_height="36dp"
-            android:text="82,5"
+
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -303,7 +304,7 @@
         android:layout_width="354dp"
         android:layout_height="137dp"
         android:background="@drawable/roundedbox"
-        android:backgroundTint="#654593"
+        android:backgroundTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -312,14 +313,14 @@
         app:layout_constraintVertical_bias="0.723">
 
         <TableLayout
-            android:stretchColumns="0,1,2"
-
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:stretchColumns="0,1,2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -332,18 +333,19 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/roundedbox2"
-                    android:backgroundTint="#572A98"
-                    android:layout_marginRight="5dp">
+                    android:backgroundTint="#332898">
 
                     <TextView
                         android:id="@+id/txtExercise1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:autoSizeTextType="uniform"
-                        android:textAlignment="center"
                         android:text="Exercise"
+                        android:textAlignment="center"
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -354,10 +356,11 @@
                         android:id="@+id/txtExercise1Score"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="0KG"
                         android:autoSizeTextType="uniform"
+                        android:text="0KG"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.521"
@@ -365,12 +368,13 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.737" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/roundedbox2"
-                    android:backgroundTint="#572A98"
                     android:layout_marginRight="5dp"
+                    android:background="@drawable/roundedbox2"
+                    android:backgroundTint="#FF332898"
                     tools:ignore="ExtraText">>
 
                     <TextView
@@ -378,10 +382,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:autoSizeTextType="uniform"
-                        android:textAlignment="center"
                         android:text="Exercise"
+                        android:textAlignment="center"
 
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -392,10 +397,11 @@
                         android:id="@+id/txtExercise2Score"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="0KG"
                         android:autoSizeTextType="uniform"
+                        android:text="0KG"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.521"
@@ -403,21 +409,23 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.737" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/roundedbox2"
-                    android:backgroundTint="#572A98">
+                    android:backgroundTint="#332898">
 
                     <TextView
                         android:id="@+id/txtExercise3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:autoSizeTextType="uniform"
-                        android:textAlignment="center"
                         android:text="Exercise"
+                        android:textAlignment="center"
                         android:textColor="#FFFFFF"
 
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -437,7 +445,8 @@
                         app:layout_constraintHorizontal_bias="0.521"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.737" />
+                        app:layout_constraintVertical_bias="0.737"
+                        android:textStyle="bold" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </TableRow>
         </TableLayout>

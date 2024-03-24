@@ -2,11 +2,13 @@ package honours.application.valiantfitness.recyclerviewadapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -72,6 +74,15 @@ public class ExerciseReyclerAdapter extends RecyclerView.Adapter<ExerciseReycler
         TextView textView = holder.itemView.findViewById(R.id.categoryText);
         textView.setText(exerciseCategory.getName());
         holder.exerciseCategory = exerciseCategory;
+        if (exerciseCategory.getImage() != null){
+           int drawable = context.getResources().getIdentifier(exerciseCategory.getImage(),"drawable",context.getPackageName());
+            ImageView imageView = holder.itemView.findViewById(R.id.imgBackground);
+            imageView.setImageResource(drawable);
+        }else{
+            int drawable = context.getResources().getIdentifier("curl","drawable",context.getPackageName());
+            ImageView imageView = holder.itemView.findViewById(R.id.imgBackground);
+            imageView.setImageResource(drawable);
+        }
     }
 
     @Override

@@ -125,11 +125,13 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
 
             trackerData = trackerRepository.GetDataFromDateMode("Weight",date);
 
+            TextView txtDate= view.findViewById(R.id.DateWeight);
+            txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()).toString());
+
             if(trackerData != null){
                 TextView textView = view.findViewById(R.id.WeightValue);
                 textView.setText(trackerData.getValue().toString());
-                TextView txtDate= view.findViewById(R.id.DateWeight);
-                txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(trackerData.getDate()).toString());
+
             }
 
             trackerData = trackerRepository.GetDataFromDateMode("Volume",date);
@@ -147,9 +149,9 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
                     volumeBar.setProgress((int) Math.abs(trackerData.getValue()));
                 }
 
-                DisplayPersonalBest();
-            }
 
+            }
+            DisplayPersonalBest();
             trackerData = trackerRepository.GetDataFromDateMode("Steps",date);
 
             if(trackerData != null){
@@ -173,6 +175,11 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
         exerciseRepository = new ExerciseRepository(getContext());
         exerciseSetRepository = new ExerciseSetRepository(getContext());
         List<ExerciseData> exerciseDataList = exerciseRepository.GetAllExercises();
+
+        if(exerciseDataList != null){
+
+
+
         int limit = exerciseDataList.size();
         if(exerciseDataList.size() > 3){
             limit = 3;
@@ -208,7 +215,7 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
 
         }
 
-
+        }
     }
 
     public ExerciseSetData GetPersonalData(ExerciseData exerciseData){
