@@ -34,6 +34,9 @@ import honours.application.valiantfitness.exercisedata.ExerciseRepository;
 import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
 import honours.application.valiantfitness.recyclerviewadapters.ExercisePageAdapter;
+import honours.application.valiantfitness.trackerdata.TrackerData;
+import honours.application.valiantfitness.trackerdata.TrackerRepository;
+
 import android.provider.Settings.Secure;
 
 public class TabExerciseSet extends Fragment implements View.OnClickListener{
@@ -46,6 +49,8 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
     public static final String ARG_CONTEXT = "context";
     private Context context;
 
+    private  TrackerRepository trackerRepository;
+
     String android_id;
     private static final String TAG = "TabExerciseSet";
     private Button btnLog;
@@ -56,6 +61,7 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
     public TabExerciseSet(Context context) {
         // Required empty public constructor
         this.context = context;
+        trackerRepository = new TrackerRepository(context);
     }
 
 
@@ -95,6 +101,7 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         this.exerciseRecycler = view.findViewById(R.id.rv_ExerciseSetTab);
         RVAdapter = new ExercisePageAdapter(getContext(),this.exercisesCompleted);
+        trackerRepository = new TrackerRepository(getContext());
         this.exerciseRecycler.setAdapter(RVAdapter);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         exerciseRecycler.setLayoutManager(layoutManager);
@@ -162,7 +169,8 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
             try {
                 ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
                 ExerciseSetRepository exerciseSetRepository = new ExerciseSetRepository(getContext());
-
+                TrackerData trackerData = trackerRepository.GetDataFromDateMode("Volume",exerciseData.getDate());
+                Double Volume = 0.0;
 
                 long id = exerciseRepository.AddExercise(exerciseData); //(not activating till I add history section)
                 exerciseData.setID(id);
@@ -171,6 +179,17 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
                     exerciseSetData.setExerciseID(id);
                     Log.d(TAG, exerciseSetData.toString());
                     exerciseSetRepository.AddExerciseSet(exerciseSetData);
+                    Volume+= exerciseSetData.getWeight() * (double) exerciseSetData.getRep();
+                }
+                if (trackerData != null){
+                    trackerData.setValue(trackerData.getValue()+Volume);
+                    trackerRepository.UpdateTrackedData(trackerData);
+                }else{
+                    trackerData = new TrackerData();
+                    trackerData.setDataName("Volume");
+                    trackerData.setValue(Volume);
+                    trackerData.setDate(exerciseData.getDate());
+                    trackerRepository.AddTrackedData(trackerData);
                 }
             }catch (Error e) {
                 Log.d(TAG, "LOGGING FAILED, ERROR ");

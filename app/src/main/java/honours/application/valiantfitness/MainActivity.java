@@ -5,13 +5,53 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import honours.application.valiantfitness.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
 ActivityMainBinding binding;
+private SensorManager sensorManager;
+private Sensor sensor;
+//https://www.youtube.com/watch?v=l3yBm96qQuI
+//https://developer.android.com/develop/sensors-and-location/sensors/sensors_motion#sensors-motion-stepcounter
+// https://developer.android.com/health-and-fitness/guides/basic-fitness-app/read-step-count-data#analyze-data
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+
+        if(sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
+            long StepCount = (long) sensorEvent.values[0];
+            Log.d("MainActivity", Long.toString(StepCount));
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    @Override
+protected  void onStop(){
+    super.onStop();
+    if (sensor != null){
+        sensorManager.unregisterListener((SensorEventListener) this);
+    }
+}
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (sensor != null){
+          sensorManager.registerListener((SensorEventListener) this,sensor,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +80,19 @@ ActivityMainBinding binding;
 
             return true;
         });
+
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+        if (sensor == null){
+
+
+
+        }
+
+
+
     }
 
     private void replaceFragment(Fragment fragment) {

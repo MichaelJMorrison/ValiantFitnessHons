@@ -2,6 +2,8 @@ package honours.application.valiantfitness;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -102,7 +104,7 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
 
         lcTrack = view.findViewById(R.id.lcTrack);
         lcTrack.setTouchEnabled(true);
-        lcTrack.setPinchZoom(true);
+
         trackerRepository = new TrackerRepository(getContext());
 
         btnObjectiveRecord.setOnClickListener(this);
@@ -114,15 +116,14 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
                 trackerData = trackerRepository.GetDataFromDateMode(mode, date);
-            } catch (ParseException error) {
 
+              DisplayData();
+            } catch (ParseException | Error error) {
+                Log.d(TAG,error.toString());
             }
 
-            if (trackerData != null){
-                txtCurrent.setText(trackerData.getValue().toString());
-                txtAverage.setText(GetAverage().toString());
-                LoadChart();
-            }
+
+
 
         }
 
@@ -140,6 +141,27 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
         if (this.mode == "Weight") {
 
             txtObjective.setText("WEIGHT (KG)");
+        }
+
+        if (this.mode == "Volume") {
+            txtScore.setVisibility(View.VISIBLE);
+            txtNumberInput.setVisibility(View.GONE);
+            btnObjectiveRecord.setVisibility(View.GONE);
+            txtObjective.setText("TOTAL VOLUME LIFTED (KG)");
+
+        }
+
+    }
+
+    public void DisplayData(){
+        if (trackerData != null){
+            txtCurrent.setText(trackerData.getValue().toString());
+            txtScore.setText(trackerData.getValue().toString());
+
+        }
+        if(fullTrackerData.size() > 0) {
+            txtAverage.setText(GetAverage().toString());
+            LoadChart();
         }
 
     }
@@ -160,35 +182,73 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
     public void LoadChart() {
     List<Entry> entries =  new ArrayList<>();
     List<String> dates = new ArrayList<>();
+        Log.d(TAG, Integer.toString(fullTrackerData.size()));
+    try {
         for (int i = 0; i < fullTrackerData.size(); i++) {
-         //  entries.add(new Entry(fullTrackerData.get(i).getDate().getTime(),fullTrackerData.get(i).getValue().floatValue()));
-            entries.add(new Entry(i,fullTrackerData.get(i).getValue().floatValue()));
+            //  entries.add(new Entry(fullTrackerData.get(i).getDate().getTime(),fullTrackerData.get(i).getValue().floatValue()));
+            entries.add(new Entry(i, fullTrackerData.get(i).getValue().floatValue()));
 
             try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Log.d(TAG,fullTrackerData.get(i).getDate().toString());
                 dates.add(new SimpleDateFormat("dd/MM/yyyy").format(fullTrackerData.get(i).getDate()).toString());
-                Log.d(TAG,dates.get(i));
-            }catch (Error error) {
-                Log.d(TAG,"ERROR");
+
+            } catch (Error error) {
+                error.printStackTrace();
+                Log.d(TAG, "ERROR");
             }
 
 
         }
 
-        LineDataSet lineDataSet = new LineDataSet(entries,mode);
+        Log.d(TAG, "Phase 1 Passed");
 
-        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        LineDataSet lineDataSet = new LineDataSet(entries, mode);
+
+
+        lineDataSet.setColor(Color.rgb(66, 113, 255));
+        lineDataSet.setCircleRadius(4);
+        lineDataSet.setCircleColor(Color.rgb(66, 113, 255));
 
         LineData lineData = new LineData(lineDataSet);
-
-
-        lcTrack.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        lineDataSet.setLineWidth(2);
+        lineData.setDrawValues(false);
+        Log.d(TAG, "Phase 2 Passed");
         lcTrack.setData(lineData);
-        lcTrack.invalidate();
-         lcTrack.getXAxis().setValueFormatter(new LineAxisXFormatDate(dates));
+        lcTrack.getXAxis().setValueFormatter(new LineAxisXFormatDate(dates));
+        Log.d(TAG, "Phase 3 Passed");
+        lcTrack.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
 
+        //lcTrack.invalidate();
+
+        lcTrack.setDrawGridBackground(false);
         lcTrack.getXAxis().setDrawLimitLinesBehindData(true);
         lcTrack.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lcTrack.getDescription().setEnabled(false);
+        lcTrack.getXAxis().setDrawGridLines(false);
+        lcTrack.getXAxis().setDrawAxisLine(true);
+        lcTrack.getAxisLeft().setDrawGridLines(false);
+        lcTrack.getAxisLeft().setDrawAxisLine(true);
+        lcTrack.getAxisRight().setEnabled(false);
+        lcTrack.notifyDataSetChanged();
+        lcTrack.invalidate();
+
+        if(fullTrackerData.size() == 1){
+            lcTrack.getXAxis().setGranularity(2F);
+        }else{
+            lcTrack.getXAxis().setGranularity(1F);
+        }
+
+
+
+        lcTrack.getLegend().setEnabled(false);
+        lcTrack.setHighlightPerDragEnabled(false);
+
+        lcTrack.getXAxis().setTypeface(Typeface.DEFAULT_BOLD);
+        lcTrack.getAxisLeft().setTypeface(Typeface.DEFAULT_BOLD);
+        Log.d(TAG, "Phase 4 Passed");
+    }catch (Error error){
+        Log.d(TAG,error.toString());
+    }
 
     }
 
@@ -232,35 +292,43 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
                         } catch (Error error) {
                             Log.d(TAG, error.toString());
                         } finally {
+
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                             builder.setMessage("Data Saved Successfully!");
                             builder.setTitle("Tracker Record");
                             builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                                    fullTrackerData = trackerRepository.GetDataFromSection(mode);
+                                    DisplayData();
                                 }
                             });
                             AlertDialog dialog = builder.create();
                             dialog.show();
+
+
                         }
 
 
                     } else {
                         Log.d(TAG, txtNumberInput.getText().toString());
                         trackerData.setValue(Double.parseDouble(txtNumberInput.getText().toString()));
+
                         try {
                             trackerRepository.UpdateTrackedData(trackerData);
                         } catch (Error error) {
                             Log.d(TAG, error.toString());
                         } finally {
+
+
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("Data Saved Successfully!");
+                            builder.setMessage("Data Updated Successfully!");
                             builder.setTitle("Tracker Record");
                             builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                                    fullTrackerData = trackerRepository.GetDataFromSection(mode);
+                                    DisplayData();
                                 }
                             });
                             AlertDialog dialog = builder.create();

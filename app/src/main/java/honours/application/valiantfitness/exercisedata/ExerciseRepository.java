@@ -29,6 +29,10 @@ public class ExerciseRepository {
         return this.exerciseDao.getExercisesFromName(name);
     }
 
+    public List<ExerciseData> GetAllExercises() {
+        return this.exerciseDao.getAllExerciseData();
+    }
+
     public void DeleteExercise(ExerciseData exerciseData) {
         this.exerciseDao.delete(exerciseData);
     }
