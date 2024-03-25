@@ -51,7 +51,7 @@ public class TabExerciseGuide extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         gifExeciseImage = view.findViewById(R.id.gifExeciseImage);
-        Glide.with(this).load(R.drawable.dog).into(gifExeciseImage);
+        Glide.with(this).load(R.drawable.barbellbenchpresschest).into(gifExeciseImage);
 
     }
 

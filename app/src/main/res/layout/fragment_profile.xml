@@ -74,4 +74,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.024" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProfileBadges"
+        android:layout_width="0dp"
+        android:layout_height="297dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtBio"
+        app:layout_constraintVertical_bias="0.347"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

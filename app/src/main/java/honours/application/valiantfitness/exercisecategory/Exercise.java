@@ -16,6 +16,8 @@ public class Exercise implements Parcelable {
 
     String Image;
 
+    String Guide;
+
     public Exercise(String name, String group, String mode) {
         this.name = name;
         this.Group = group;
@@ -117,6 +119,22 @@ public class Exercise implements Parcelable {
         parcel.writeString(getName());
         parcel.writeString(getDescription());
 
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getGuide() {
+        return Guide;
+    }
+
+    public void setGuide(String guide) {
+        Guide = guide;
     }
 
     @Override
