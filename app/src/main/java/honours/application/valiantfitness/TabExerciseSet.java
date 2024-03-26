@@ -25,19 +25,26 @@ import android.widget.Button;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import honours.application.valiantfitness.badge.Badge;
+import honours.application.valiantfitness.badge.BadgeRepository;
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisedata.ExerciseData;
 import honours.application.valiantfitness.exercisedata.ExerciseRepository;
+import honours.application.valiantfitness.exercisedata.ExerciseSetComparator;
 import honours.application.valiantfitness.exercisedata.ExerciseSetData;
 import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
 import honours.application.valiantfitness.recyclerviewadapters.ExercisePageAdapter;
 import honours.application.valiantfitness.trackerdata.TrackerData;
 import honours.application.valiantfitness.trackerdata.TrackerRepository;
+import honours.application.valiantfitness.workoutdata.WorkoutRepository;
 
 import android.provider.Settings.Secure;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class TabExerciseSet extends Fragment implements View.OnClickListener{
 
@@ -202,6 +209,7 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
                 builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        BadgeAward();
                         AppCompatActivity activity = (AppCompatActivity) getActivity();
                         Fragment fragment = new WorkoutFragment();
                         FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -216,5 +224,62 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void BadgeAward(){
+        BadgeRepository badgeRepository = new BadgeRepository(getContext());
+        Badge badge = badgeRepository.GetBadgeFromTitle("Beginner Gym Logger");
+
+        if (badge == null){
+            badge = new Badge("Beginner Gym Logger", "You have logged your first exercise!","bronze","squaticon");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: First Workout Created!", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
+        List<ExerciseData> exerciseData = exerciseRepository.GetAllExercises();
+
+        Log.d(TAG,Integer.toString(exerciseData.size()));
+
+        if (exerciseData.size()>=10 & badgeRepository.GetBadgeFromTitle("Novice Gym Logger") == null){
+            badge = new Badge("Novice Gym Logger", "You have logged more than 10 exercises!","bronze","note");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: " + badge.getTitle(), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        if (exerciseData.size()>=50 & badgeRepository.GetBadgeFromTitle("Intermediate Gym Logger") == null){
+            badge = new Badge("Intermediate Gym Logger", "You have logged more than 50 exercises!","silver","note");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: " + badge.getTitle(), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        if (exerciseData.size()>=100 & badgeRepository.GetBadgeFromTitle("Marathon Gym Logger") == null){
+            badge = new Badge("Marathon Gym Logger", "You have logged more than 100 exercises!","gold","note");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: " + badge.getTitle(), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+
+
+
+        Collections.sort(exercisesCompleted,Collections.reverseOrder( new ExerciseSetComparator()));
+
+        if (exercisesCompleted.get(0).getWeight()>=60 & badgeRepository.GetBadgeFromTitle("Novice Lifter") == null){
+            badge = new Badge("Novice Lifter", "You have lifted more than 60KG for the first time!","silver","squaticon");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: " + badge.getTitle(), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        if (exercisesCompleted.get(0).getWeight()>=100 & badgeRepository.GetBadgeFromTitle("Heavy Lifter") == null){
+            badge = new Badge("Heavy Lifter", "You have lifted more than 100KG for the first time!","silver","squaticon");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: " + badge.getTitle(), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+    }
 
 }

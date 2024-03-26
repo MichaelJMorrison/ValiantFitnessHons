@@ -40,13 +40,13 @@
         android:inputType="textMultiLine"
         android:maxLength="140"
         android:maxLines="40"
-        android:text="BIO STUFF"
+        android:text="Tell us something about you"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintTop_toBottomOf="@+id/txtName"
+        app:layout_constraintVertical_bias="0.093" />
 
     <TextView
         android:id="@+id/txtName"
@@ -78,13 +78,13 @@
         android:id="@+id/rvProfileBadges"
         android:layout_width="0dp"
         android:layout_height="297dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBio"
-        app:layout_constraintVertical_bias="0.347"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        app:layout_constraintVertical_bias="0.347" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

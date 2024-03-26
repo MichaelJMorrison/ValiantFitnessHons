@@ -6,8 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import honours.application.valiantfitness.badge.BadgeRepository;
+import honours.application.valiantfitness.recyclerviewadapters.BadgeAdapter;
 import honours.application.valiantfitness.userdata.User;
 import honours.application.valiantfitness.userdata.UserRepository;
 
@@ -33,6 +39,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView txtName;
 
     private TextView txtBio;
+
+    private RecyclerView rvProfileBadges;
+
+    private static final String TAG = "ProfileFragment";
 
 
     String DeviceID;
@@ -77,6 +87,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         this.txtBio = view.findViewById(R.id.txtBio);
         this.txtUsername = view.findViewById(R.id.txtUsername);
         this.imageProfile = view.findViewById(R.id.imageProfile);
+        this.rvProfileBadges = view.findViewById(R.id.rvProfileBadges);
 
         try {
             UserRepository userRepository = new UserRepository(getContext());
@@ -88,6 +99,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 Glide.with(view).load(this.user.getProfileImage()).into(this.imageProfile);
 
             }
+
+            BadgeRepository badgeRepository = new BadgeRepository(getContext());
+
+            if(badgeRepository.GetAllBadges()!= null) {
+                BadgeAdapter badgeAdapter = new BadgeAdapter(getContext(),badgeRepository.GetAllBadges());
+                this.rvProfileBadges.setAdapter(badgeAdapter);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+             //   LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+              this.rvProfileBadges.setLayoutManager(gridLayoutManager);
+            }
+
         }catch (Error error) {
 
         }

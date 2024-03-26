@@ -48,7 +48,8 @@ public class Exercise implements Parcelable {
 
             exercise.setName(in.readString());
             exercise.setDescription(in.readString());
-
+            exercise.setImage(in.readString());
+            exercise.setGuide(in.readString());
             return  exercise;
         }
 
@@ -118,6 +119,8 @@ public class Exercise implements Parcelable {
         //  out.writeLong(getId());
         parcel.writeString(getName());
         parcel.writeString(getDescription());
+        parcel.writeString(getImage());
+        parcel.writeString(getGuide());
 
     }
 

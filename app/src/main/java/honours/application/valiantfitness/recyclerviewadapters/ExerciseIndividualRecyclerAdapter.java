@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,17 @@ public class ExerciseIndividualRecyclerAdapter extends RecyclerView.Adapter<Exer
         Exercise exercise = exercises.get(position);
         Button btnExercise = holder.itemView.findViewById(R.id.btnExerciseItem);
         btnExercise.setText(exercise.getName());
+        ImageView imageView = holder.itemView.findViewById(R.id.imgExerciseIcon);
+
+        if (exercise.getImage() != null){
+            int drawable = context.getResources().getIdentifier(exercise.getImage(),"drawable",context.getPackageName());
+
+            imageView.setImageResource(drawable);
+        }else{
+            int drawable = context.getResources().getIdentifier("core","drawable",context.getPackageName());
+
+            imageView.setImageResource(drawable);
+        }
     }
 
     @Override

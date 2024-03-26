@@ -44,6 +44,8 @@ public class FileExtractor {
             while(scanner.hasNextLine()){
                 String[] details = scanner.nextLine().split(",");
                 Exercise exercise = new Exercise(details[0],details[1],details[2],details[3] );
+                exercise.setImage(details[4]);
+                exercise.setGuide(details[5]);
               //  Log.d(TAG, exercise.toString());
                 exercises.add(exercise);
             }

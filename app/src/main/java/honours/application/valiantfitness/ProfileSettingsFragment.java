@@ -60,6 +60,8 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
     private Button btnProfileSave;
     private Button btnProfileCancel;
 
+    private Button btnProfileWipe;
+
     //https://developer.android.com/training/data-storage/shared/photopicker CREDIT TO ALL IMAGE SELECTOR STUFF IN THIS FRAGMENT
     //https://medium.com/@everydayprogrammer/implement-android-photo-picker-in-android-studio-3562a85c85f1 Reference for Glide
     //Credit to Glide Package https://bumptech.github.io/glide/doc/download-setup.html
@@ -130,6 +132,7 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
         btnProfileCancel = view.findViewById(R.id.btnProfileCancel);
         btnPictureSelect = view.findViewById(R.id.btnPictureSelect);
         btnProfileSave = view.findViewById(R.id.btnProfileSave);
+        btnProfileWipe = view.findViewById(R.id.btnProfileWipe);
 
         txtEditBio = view.findViewById(R.id.txtEditBio);
         txtEditName = view.findViewById(R.id.txtEditName);
@@ -138,6 +141,7 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
         btnProfileCancel.setOnClickListener(this);
         btnPictureSelect.setOnClickListener(this);
         btnProfileSave.setOnClickListener(this);
+        btnProfileWipe.setOnClickListener(this);
     }
 
     @Override
@@ -238,6 +242,34 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
                     dialog.show();
                 }
 
+               break;
+           case R.id.btnProfileWipe:
+               AlertDialog.Builder builder3 = new AlertDialog.Builder(getActivity());
+               builder3.setMessage("Are you sure wish to wipe all data? All data will be lost");
+               builder3.setTitle("Profile Settings");
+               builder3.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+
+                       AppCompatActivity activity = (AppCompatActivity) getActivity();
+                       Fragment fragment = new ProfileFragment();
+                       FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_Layout,fragment);
+                       fragmentTransaction.commit();
+                   }
+               });
+               builder3.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+
+                   }
+               });
+               AlertDialog dialog3 = builder3.create();
+               dialog3.show();
                break;
            default:
                break;

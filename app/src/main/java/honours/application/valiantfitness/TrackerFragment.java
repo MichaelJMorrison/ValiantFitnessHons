@@ -120,7 +120,8 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
                 TextView textView = view.findViewById(R.id.CaloriesValue);
                 textView.setText(trackerData.getValue().toString());
                 TextView textView1 = view.findViewById(R.id.CaloriesAverage);
-                textView1.setText(GetAverage().toString());
+                Double rounded = (double) Math.round(GetAverage()*100)/100;
+                textView1.setText(rounded.toString());
             }
 
             trackerData = trackerRepository.GetDataFromDateMode("Weight",date);

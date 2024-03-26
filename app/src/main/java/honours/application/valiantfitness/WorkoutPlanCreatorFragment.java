@@ -25,9 +25,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import honours.application.valiantfitness.badge.Badge;
+import honours.application.valiantfitness.badge.BadgeRepository;
 import honours.application.valiantfitness.exercisecategory.Exercise;
 import honours.application.valiantfitness.exercisedata.ExerciseRepository;
 import honours.application.valiantfitness.exercisedata.ExerciseSetData;
@@ -182,6 +187,7 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
                     builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            BadgeAward();
                             AppCompatActivity activity = (AppCompatActivity) getActivity();
                             Fragment fragment = new WorkoutFragment();
                             FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -251,6 +257,34 @@ public class WorkoutPlanCreatorFragment extends Fragment implements View.OnClick
     }
 
 
+    public void BadgeAward(){
+        BadgeRepository badgeRepository = new BadgeRepository(getContext());
+        Badge badge = badgeRepository.GetBadgeFromTitle("Workout Founder");
+
+        if (badge == null){
+            badge = new Badge("Workout Founder", "You have created your first workout plan!","bronze","curl");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: First Workout Created!", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
+
+        if (workoutRepository.GetWorkoutFromDeviceID(DeviceID).size()>=5 & badgeRepository.GetBadgeFromTitle("Workout Planner") == null){
+            badge = new Badge("Workout Planner", "You have been awarded for creating 5 Workout Plans!","silver","curl");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: Workout Planner!", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+        if (workoutRepository.GetWorkoutFromDeviceID(DeviceID).size()>=6 & badgeRepository.GetBadgeFromTitle("Workout Forger") == null){
+            badge = new Badge("Workout Forger", "You have been awarded for creating 10 Workout Plans!","gold","curl");
+            badgeRepository.AddBadge(badge);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: Workout Forger!", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
+    }
 
 
 }

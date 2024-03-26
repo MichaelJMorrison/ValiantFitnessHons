@@ -156,11 +156,12 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
     public void DisplayData(){
         if (trackerData != null){
             txtCurrent.setText(trackerData.getValue().toString());
-            txtScore.setText(trackerData.getValue().toString());
+           txtScore.setText(trackerData.getValue().toString());
 
         }
         if(fullTrackerData.size() > 0) {
-            txtAverage.setText(GetAverage().toString());
+            Double rounded = (double) Math.round(GetAverage()*100)/100;
+            txtAverage.setText(rounded.toString());
             LoadChart();
         }
 
@@ -199,7 +200,7 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
 
 
         }
-
+        lcTrack.invalidate();
         Log.d(TAG, "Phase 1 Passed");
 
         LineDataSet lineDataSet = new LineDataSet(entries, mode);
@@ -213,12 +214,14 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
         lineDataSet.setLineWidth(2);
         lineData.setDrawValues(false);
         Log.d(TAG, "Phase 2 Passed");
-        lcTrack.setData(lineData);
+        lcTrack.clear();
         lcTrack.getXAxis().setValueFormatter(new LineAxisXFormatDate(dates));
+        lcTrack.setData(lineData);
+
         Log.d(TAG, "Phase 3 Passed");
         lcTrack.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
 
-        //lcTrack.invalidate();
+
 
         lcTrack.setDrawGridBackground(false);
         lcTrack.getXAxis().setDrawLimitLinesBehindData(true);
@@ -250,6 +253,13 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
         Log.d(TAG,error.toString());
     }
 
+    }
+
+    public void updateChart(){
+        lcTrack.getLineData().clearValues();
+        lcTrack.clear();
+
+        lcTrack.invalidate();
     }
 
     @Override
@@ -300,7 +310,8 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     fullTrackerData = trackerRepository.GetDataFromSection(mode);
-                                    DisplayData();
+                                    updateChart();
+                                 DisplayData();
                                 }
                             });
                             AlertDialog dialog = builder.create();
