@@ -1,11 +1,16 @@
 package honours.application.valiantfitness;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,10 +18,17 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import honours.application.valiantfitness.databinding.ActivityMainBinding;
+import honours.application.valiantfitness.trackerdata.TrackerData;
+import honours.application.valiantfitness.trackerdata.TrackerRepository;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+private static final String TAG = "MainActivity";
 ActivityMainBinding binding;
 private SensorManager sensorManager;
 private Sensor sensor;
@@ -28,7 +40,37 @@ private Sensor sensor;
 
         if(sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
             long StepCount = (long) sensorEvent.values[0];
-            Log.d("MainActivity", Long.toString(StepCount));
+       //   Log.d(TAG, "Step Counter:" + Long.toString(StepCount));
+            TrackerRepository trackerRepository = new TrackerRepository(getBaseContext());
+
+            Date date = new Date();
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            }catch (ParseException | Error error) {
+                Log.d(TAG,error.toString());
+            }
+
+            try {
+                TrackerData trackerData = trackerRepository.GetDataFromDateMode("Steps",date);
+                if(trackerData == null){
+                    trackerData = new TrackerData();
+                    trackerData.setDataName("Steps");
+                    trackerData.setDate(date);
+                    trackerData.setValue((double) StepCount);
+                    trackerRepository.AddTrackedData(trackerData);
+                }else{
+                    trackerData.setValue((double) StepCount);
+                    trackerRepository.UpdateTrackedData(trackerData);
+                }
+
+
+            }catch (Error error){
+                Log.d(TAG,error.toString());
+            }finally {
+                Log.d(TAG,"Step Counter Updated");
+            }
+
         }
     }
 
@@ -61,6 +103,9 @@ protected  void onStop(){
         replaceFragment(new WorkoutFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
+
+
+
         switch(item.getItemId()) {
 
             case R.id.Workout:
@@ -82,14 +127,21 @@ protected  void onStop(){
         });
 
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG,"NO PERMISSION");
+          ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, Manifest.permission.ACTIVITY_RECOGNITION.hashCode());
+
+        }
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         if (sensor == null){
-
+            Log.d(TAG,"No sensor found on this device");
 
 
         }
+
 
 
 
@@ -103,4 +155,14 @@ protected  void onStop(){
         fragmentTransaction.commit();
     }
 
+//https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/ CREDIT
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Manifest.permission.ACTIVITY_RECOGNITION.hashCode()){
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Log.d(TAG, "Permission Granted");
+            }
+        }
+    }
 }

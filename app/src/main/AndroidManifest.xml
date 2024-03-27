@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="true"></uses-feature>
     <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="true"></uses-feature>
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,7 +18,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,15 +27,15 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
-            android:enabled="false"
-            android:exported="false"
-            tools:ignore="MissingClass">
-            <intent-filter>
-                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
-            </intent-filter>
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
-        </service>
+<!--        <service android:name="com.google.android.gms.metadata.ModuleDependencies"-->
+<!--            android:enabled="false"-->
+<!--            android:exported="false"-->
+<!--            tools:ignore="MissingClass">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />-->
+<!--            </intent-filter>-->
+<!--            <meta-data android:name="photopicker_activity:0:required" android:value="" />-->
+<!--        </service>-->
 
     </application>
 

@@ -7,15 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -157,11 +154,13 @@ public class TrackerFragment extends Fragment implements View.OnClickListener{
 
             if(trackerData != null){
                 TextView textView = view.findViewById(R.id.txtSteps);
-                textView.setText(trackerData.getValue().toString() + "/ 7500");
-                ProgressBar volumeBar = view.findViewById(R.id.VolumeProgressBar);
-                volumeBar.setProgress((int) Math.abs(trackerData.getValue()/7500));
+                textView.setText(trackerData.getValue().toString() + "\n7500");
+                ProgressBar volumeBar = view.findViewById(R.id.progressBar);
+                volumeBar.setProgress((int) Math.abs(trackerData.getValue()/7500*100));
 
             }
+
+
 
         }catch (Error error){
 

@@ -26,6 +26,9 @@ public static Date fromTimestamp(Long value) {
   //  https://stackoverflow.com/questions/57117262/how-to-save-images-to-room-persistence-library
 @TypeConverter
 public static Bitmap toBitMap(byte[] bytes){
+    if (bytes == null){
+        return null;
+    }
 return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 }
 
@@ -34,7 +37,7 @@ return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 public static byte[] fromBitMap(Bitmap bitmap){
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+    bitmap.compress(Bitmap.CompressFormat.PNG,10,outputStream);
     return outputStream.toByteArray();
 
 }

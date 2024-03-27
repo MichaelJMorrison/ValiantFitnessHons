@@ -92,11 +92,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         try {
             UserRepository userRepository = new UserRepository(getContext());
             if(userRepository.GetUserFromDeviceID(this.DeviceID) != null) {
+
+
                 this.user = userRepository.GetUserFromDeviceID(this.DeviceID);
                 this.txtUsername.setText(this.user.getUserName());
                 this.txtBio.setText(this.user.getBiography());
                 this.txtName.setText(this.user.getName());
-                Glide.with(view).load(this.user.getProfileImage()).into(this.imageProfile);
+                if (this.user.getProfileImage() != null){
+                    Glide.with(view).load(this.user.getProfileImage()).into(this.imageProfile);
+                }
+
 
             }
 
@@ -111,7 +116,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
 
         }catch (Error error) {
-
+        Log.d(TAG+"Loader",error.toString());
         }
 
     }

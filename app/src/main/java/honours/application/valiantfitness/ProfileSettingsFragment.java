@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 
@@ -72,13 +73,30 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
                 if (uri != null) {
                     Log.d("PhotoPicker", "Selected URI: " + uri);
                     try {
-                        Glide.with(getActivity().getApplicationContext()).asBitmap().load(uri).into(btnPictureSelect);
+                        Glide.with(getActivity().getApplicationContext()).asBitmap().load(uri).centerInside().into(btnPictureSelect);
 
-                        Glide.with(getActivity().getApplicationContext()).load(uri).into(new CustomTarget<Drawable>() {
+                        RequestOptions requestOptions = new RequestOptions().override(500,500);
+//                        Glide.with(getActivity().getApplicationContext()).load(uri).into(new CustomTarget<Drawable>() {
+//                            @Override
+//                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//
+//                                Log.d("PhotoPicker", "image sorted");
+//                                image = ((BitmapDrawable) resource).getBitmap();
+//                                Log.d("PhotoPicker", image.toString());
+//                            }
+//
+//                            @Override
+//                            public void onLoadCleared(@Nullable Drawable placeholder) {
+//
+//                            }
+//                        });
+
+                        Glide.with(getActivity().getApplicationContext()).asBitmap().apply(requestOptions).load(uri).into(new CustomTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-
-                                image = ((BitmapDrawable) resource).getBitmap();
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("PhotoPicker", "image sorted");
+                                image = resource;
+                                Log.d("PhotoPicker", image.toString());
                             }
 
                             @Override
