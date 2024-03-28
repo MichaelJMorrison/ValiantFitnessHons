@@ -256,7 +256,7 @@ public class TrackerTemplateFragment extends Fragment implements View.OnClickLis
     }
 
     public void updateChart(){
-        lcTrack.getLineData().clearValues();
+        lcTrack.getLineData();
         lcTrack.clear();
 
         lcTrack.invalidate();
