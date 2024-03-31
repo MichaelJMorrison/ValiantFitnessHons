@@ -1,5 +1,5 @@
 # VALIANT FITNESS
-Honours Project School of Computing Computing Science (BSC) at Robert Gordon Univserity 2024 Michael Morrison
+Honours Project School of Computing Computing Science (BSC) at Robert Gordon University 2024 **Michael Morrison**
 
 
 
@@ -8,7 +8,7 @@ Honours Project School of Computing Computing Science (BSC) at Robert Gordon Uni
 
 ## About the Project
 
-The project was created to evaluate what features enable the retention of users in a fitness application. This application was made using Android Studio and is **only for Android Users**.
+The project was created to evaluate what features enable the retention of users in a fitness application. This application was made using Android Studio Hedgehog (2023) and is **only for Android Users**.
 
 The application contains 4 key pages:
 - Workout
@@ -18,31 +18,35 @@ The application contains 4 key pages:
 
 The Workout page allows users to access a library of exercises and workout plans and create their own based on the existing library of exercises.
 
-The Tracker Page allows users to track multiple categories of data including; Calories, Weight, Steps Taken (if enabled) and Total Volume Lifted. The page also displays 3 of the user's best set weights. 
+The Tracker Page allows users to track multiple categories of data including; Calories, Weight, Steps Taken (if enabled), and Total Volume Lifted. The page also displays 3 of the user's best-set weights. 
 
-The Profile Page allows users to set up a profile for social interaction and allows users to see badges that they have collected over their continous usage of the application.
+The Profile Page allows users to set up a profile for social interaction and see badges they have collected over their continuous usage of the application.
 
-The Social Page allows users to be able to search for help or decide to help find users to help. When they send out a ping a user can accept the user and the user will be informed that someone is on their way to help them.
+The Social Page allows users to be able to search for help or decide to find users to help. When they send out a ping a user can accept the user and the user will be informed that someone is on their way to help them.
 
 ## Installation
 To install the application you will need to install the following onto your Android Phone.
 
-When prompted you will be asked to install from an unknown app. You will need to go into your settings and to allow install from certain applications (eg chrome, your files).
+When prompted you will be asked to install from an unknown app. You must go into your settings and allow installation from certain applications (eg chrome, your files).
 
-Once installed you are good to to begin usage.
+Once installed you are good to begin usage.
 
 [Valiant V1](https://github.com/MichaelJMorrison/ValiantFitnessHons/releases/download/Test/ValiantV1.apk)
 
 ## Survey
-In the need of test results for the question of the project, please fill out the following survey once completed. No personal details will be collected from this survey.
+To create a proper evaluation of the honours project, I require users to fill out the following survey once completed. No personal details will be collected from this survey.
 
 [Form](https://forms.gle/vf6BRzADBrB2FT387)
 ## Roadmap
-- Increase the amount of Exercises and Workouts in the library
+- Increase the number of Exercises and Workouts in the library
 - Implement exercise and workout libraries onto the cloud to save storage on the local device and allow users to download them permanently.
 - Improve Social Interaction:
   - Social Leaderboard corresponding to your local area
   - Improved Social Help Finder (Proper User Display and needs)
+
+## Author
+Student: Michael Morrison
+Supervisor: Roger McDermott
 
 ## Acknowledgements
 - [Aliaksandr Makatserchyk for Gym Visualisations](https://gymvisual.com/)
