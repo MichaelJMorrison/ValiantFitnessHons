@@ -219,7 +219,7 @@ public class SocialHelpFragment extends Fragment implements View.OnClickListener
         if (txtSearchInfo.getVisibility() == View.GONE) {
             txtSearchInfo.setVisibility(View.VISIBLE);
         }
-        disconnect();
+
 
         if (this.mode == 0) {
             txtSearchInfo.setText("THANK YOU FOR HELPING A USER");
@@ -304,7 +304,7 @@ public class SocialHelpFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         AppCompatActivity activity = (AppCompatActivity) getContext();
-
+        disconnect();
         TrackerRepository trackerRepository = new TrackerRepository(getContext());
         TrackerData trackerData;
 
