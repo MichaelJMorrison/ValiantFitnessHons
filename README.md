@@ -43,7 +43,7 @@ To create a proper evaluation of the honours project, I require users to fill ou
 - Improve Social Interaction:
   - Social Leaderboard corresponding to your local area
   - Improved Social Help Finder (Proper User Display and needs)
-
+- Improve Visualisations to fully accommodate all device screen sizes.
 ## Author
 Student: Michael Morrison
 Supervisor: Roger McDermott
