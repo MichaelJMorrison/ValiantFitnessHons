@@ -41,5 +41,6 @@ public class BadgeRepository {
         this.badgeDao.delete(user);
     }
 
+    public void WipeData(){this.badgeDao.WipeData();}
 
 }

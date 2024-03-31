@@ -36,4 +36,8 @@ public interface TrackerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(TrackerData trackerData);
 
+    @Query("DELETE FROM TrackerData")
+    public void WipeData();
+
+
 }

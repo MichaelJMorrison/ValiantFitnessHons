@@ -46,4 +46,7 @@ public class TrackerRepository {
 
         return this.trackerDao.getDataFromDateMode(dataName,date.getTime());
     }
+
+    public void WipeData(){this.trackerDao.WipeData();}
+
 }

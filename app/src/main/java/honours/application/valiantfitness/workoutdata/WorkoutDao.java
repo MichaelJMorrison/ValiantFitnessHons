@@ -32,4 +32,7 @@ public interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(WorkoutData workoutData);
 
+    @Query("DELETE FROM WorkoutData")
+    public void WipeData();
+
 }

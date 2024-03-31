@@ -27,5 +27,8 @@ public interface ExerciseSetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(ExerciseSetData exerciseData);
 
+    @Query("DELETE FROM ExerciseSetData")
+    public void WipeData();
+
 
 }

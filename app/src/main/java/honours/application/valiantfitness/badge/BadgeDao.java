@@ -27,4 +27,8 @@ public interface BadgeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(Badge badge);
+
+    @Query("DELETE FROM Badge")
+    public void WipeData();
+
 }

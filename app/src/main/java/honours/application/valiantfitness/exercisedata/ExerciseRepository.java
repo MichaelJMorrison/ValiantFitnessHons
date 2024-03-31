@@ -37,7 +37,7 @@ public class ExerciseRepository {
         this.exerciseDao.delete(exerciseData);
     }
 
-
+    public void WipeData(){this.exerciseDao.WipeData();}
 
 
 }

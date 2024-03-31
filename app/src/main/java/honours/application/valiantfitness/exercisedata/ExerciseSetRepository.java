@@ -31,4 +31,6 @@ public class ExerciseSetRepository {
     public List<ExerciseSetData> getAllExerciseSetData() {
         return this.exerciseSetDao.getAllExerciseSetData();
     }
+
+    public void WipeData(){this.exerciseSetDao.WipeData();}
 }

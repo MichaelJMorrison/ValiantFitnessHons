@@ -37,7 +37,11 @@ import com.bumptech.glide.request.transition.Transition;
 
 import java.util.concurrent.ExecutionException;
 
+import honours.application.valiantfitness.badge.BadgeRepository;
 import honours.application.valiantfitness.exercisecategory.Exercise;
+import honours.application.valiantfitness.exercisedata.ExerciseRepository;
+import honours.application.valiantfitness.exercisedata.ExerciseSetRepository;
+import honours.application.valiantfitness.trackerdata.TrackerRepository;
 import honours.application.valiantfitness.userdata.User;
 import honours.application.valiantfitness.userdata.UserRepository;
 import honours.application.valiantfitness.workoutdata.WorkoutData;
@@ -270,14 +274,45 @@ public class ProfileSettingsFragment extends Fragment implements View.OnClickLis
                    public void onClick(DialogInterface dialogInterface, int i) {
 
 
+                       try{
+                           UserRepository userRepository = new UserRepository(getContext());
+                           userRepository.WipeData();
+                           WorkoutRepository workoutRepository = new WorkoutRepository(getContext());
+                           workoutRepository.WipeData();
+                           WorkoutExerciseRepository workoutExerciseRepository = new WorkoutExerciseRepository(getContext());
+                           workoutExerciseRepository.WipeData();
+                           BadgeRepository badgeRepository = new BadgeRepository(getContext());
+                           badgeRepository.WipeData();
+                           TrackerRepository trackerRepository = new TrackerRepository(getContext());
+                           trackerRepository.WipeData();
+                           ExerciseRepository exerciseRepository = new ExerciseRepository(getContext());
+                           exerciseRepository.WipeData();
+                           ExerciseSetRepository exerciseSetRepository = new ExerciseSetRepository(getContext());
+                           exerciseSetRepository.WipeData();
+
+                       }catch (Error error){
+
+                       }finally {
+                           AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                           builder.setMessage("All Data Wiped!");
+                           builder.setTitle("Profile Settings");
+                           builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialogInterface, int i) {
+                                   AppCompatActivity activity = (AppCompatActivity) getActivity();
+                                   Fragment fragment = new ProfileFragment();
+                                   FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                                   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                   fragmentTransaction.replace(R.id.frame_Layout,fragment);
+                                   fragmentTransaction.commit();
+                               }
+                           });
+                           AlertDialog dialog = builder.create();
+                           dialog.show();
+                       }
 
 
-                       AppCompatActivity activity = (AppCompatActivity) getActivity();
-                       Fragment fragment = new ProfileFragment();
-                       FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                       fragmentTransaction.replace(R.id.frame_Layout,fragment);
-                       fragmentTransaction.commit();
+
                    }
                });
                builder3.setNegativeButton("No", new DialogInterface.OnClickListener() {

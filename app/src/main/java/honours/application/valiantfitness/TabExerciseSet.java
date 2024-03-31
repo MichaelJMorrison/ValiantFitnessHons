@@ -231,7 +231,7 @@ public class TabExerciseSet extends Fragment implements View.OnClickListener{
         if (badge == null){
             badge = new Badge("Beginner Gym Logger", "You have logged your first exercise!","bronze","squaticon");
             badgeRepository.AddBadge(badge);
-            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: First Workout Created!", Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(getView(),"New Badge Unlocked: Beginner Gym Logger!", Snackbar.LENGTH_SHORT);
             snackbar.show();
         }
 

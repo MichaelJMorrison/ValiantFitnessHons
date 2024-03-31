@@ -40,4 +40,6 @@ public class WorkoutRepository {
         this.workoutDao.delete(exerciseData);
     }
 
+    public void WipeData(){this.workoutDao.WipeData();}
+
 }

@@ -38,4 +38,6 @@ public class WorkoutExerciseRepository {
         return this.workoutExercisesDao.getAllExerciseSetData();
     }
 
+    public void WipeData(){this.workoutExercisesDao.WipeData();}
+
 }

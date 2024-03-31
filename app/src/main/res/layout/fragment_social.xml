@@ -17,10 +17,10 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733" />
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toEndOf="@+id/btnSearch"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearchLocation"
+        app:layout_constraintVertical_bias="0.731" />
 
     <Button
         android:id="@+id/btnSearch"
@@ -33,8 +33,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSearchLocation"
+        app:layout_constraintVertical_bias="0.73" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -61,8 +61,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.075" />
 
     <EditText
         android:id="@+id/txtSearchLocation"
@@ -78,8 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSocialDescription"
+        app:layout_constraintVertical_bias="0.071" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

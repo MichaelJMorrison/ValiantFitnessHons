@@ -32,5 +32,7 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insert(User user);
 
+    @Query("DELETE FROM User")
+    public void WipeData();
 
 }

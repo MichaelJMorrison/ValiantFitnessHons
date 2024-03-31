@@ -42,7 +42,7 @@ public class UserRepository {
         this.userDao.delete(user);
     }
 
-
+    public void WipeData(){this.userDao.WipeData();}
 
 
 }

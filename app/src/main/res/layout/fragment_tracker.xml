@@ -14,9 +14,9 @@
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
         android:backgroundTint="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/BestConstraint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.79"
         app:layout_constraintStart_toEndOf="@+id/StepsConstraint"
         app:layout_constraintTop_toTopOf="@+id/StepsConstraint"
         app:layout_constraintVertical_bias="0.0">
@@ -30,15 +30,17 @@
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/VolumeTitle"
             android:layout_width="121dp"
             android:layout_height="27dp"
-            android:text="Volume Tracker"
             android:autoSizeTextType="uniform"
+            android:text="Volume Tracker"
             android:textColor="#FFFFFF"
 
             android:textStyle="bold"
@@ -85,7 +87,7 @@
         android:layout_height="134dp"
         android:background="@drawable/roundedbox"
         android:backgroundTint="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/BestConstraint"
         app:layout_constraintEnd_toStartOf="@+id/WeightConstraint"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
@@ -441,13 +443,13 @@
                         android:text="0KG"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.521"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.737"
-                        android:textStyle="bold" />
+                        app:layout_constraintVertical_bias="0.737" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </TableRow>
         </TableLayout>

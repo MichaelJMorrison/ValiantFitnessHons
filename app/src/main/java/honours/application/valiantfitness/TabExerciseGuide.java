@@ -52,7 +52,7 @@ public class TabExerciseGuide extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         gifExeciseImage = view.findViewById(R.id.gifExeciseImage);
 
-        if(exercise.getGuide()!= null){
+        if(exercise.getGuide()!= null | exercise.getGuide().equals("NA") == false){
             int drawable = getContext().getResources().getIdentifier(exercise.getGuide(),"drawable",getContext().getPackageName());
             Glide.with(this).load(drawable).into(gifExeciseImage);
         }

@@ -15,10 +15,10 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.965" />
+            app:layout_constraintTop_toBottomOf="@+id/txtObjective"
+            app:layout_constraintVertical_bias="0.963" />
 
         <TextView
             android:id="@+id/txtObjective"
@@ -73,12 +73,12 @@
             android:layout_height="53dp"
             android:text="RECORD"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txtHistory"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.301" />
+            app:layout_constraintVertical_bias="0.672" />
 
         <EditText
             android:id="@+id/txtNumberInput"
@@ -92,8 +92,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.532" />
+            app:layout_constraintTop_toTopOf="@+id/txtObjective"
+            app:layout_constraintVertical_bias="0.669" />
 
         <TableLayout
             android:layout_width="0dp"

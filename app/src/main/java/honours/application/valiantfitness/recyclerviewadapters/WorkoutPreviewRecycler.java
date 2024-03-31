@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,16 @@ public class WorkoutPreviewRecycler extends RecyclerView.Adapter<WorkoutPreviewR
         Button btnExercise = holder.itemView.findViewById(R.id.btnExerciseItem);
         btnExercise.setText(exercise.getName());
         btnExercise.setEnabled(false);
+
+        if (exercise.getImage() != null){
+            int drawable = context.getResources().getIdentifier(exercise.getImage(),"drawable",context.getPackageName());
+            ImageView imageView = holder.itemView.findViewById(R.id.imgExerciseIcon);
+            imageView.setImageResource(drawable);
+        }else{
+            int drawable = context.getResources().getIdentifier("curl","drawable",context.getPackageName());
+            ImageView imageView = holder.itemView.findViewById(R.id.imgExerciseIcon);
+            imageView.setImageResource(drawable);
+        }
     }
 
     @Override
