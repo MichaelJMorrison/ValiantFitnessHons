@@ -12,14 +12,14 @@ public class User {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private long id;
-    private String  UserName;
+    private String  UserName = "";
 
     private Bitmap profileImage;
 
-    private String name;
-    private String biography;
+    private String name = "";
+    private String biography = "";
 
-    private String deviceID;
+    private String deviceID = "";
 
     public User () { }
 

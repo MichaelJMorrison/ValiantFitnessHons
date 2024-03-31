@@ -12,51 +12,51 @@
         android:id="@+id/btnWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exercises"
         android:backgroundTint="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Exercises"
+        app:layout_constraintBottom_toTopOf="@+id/workoutScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <Button
         android:id="@+id/btnPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Workouts"
         android:backgroundTint="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Workouts"
+        app:layout_constraintBottom_toTopOf="@+id/workoutScroll"
         app:layout_constraintEnd_toStartOf="@+id/btnCreate"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toEndOf="@+id/btnWorkout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <Button
         android:id="@+id/btnCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Plan"
         android:backgroundTint="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Create Plan"
+        app:layout_constraintBottom_toTopOf="@+id/workoutScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <ScrollView
         android:id="@+id/workoutScroll"
-        android:layout_width="425dp"
-        android:layout_height="608dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.56">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,8 +98,7 @@
                 android:id="@+id/rv_Exercise3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

@@ -30,7 +30,9 @@ public class TrackerRepository {
     }
 
 
-
+    public TrackerData GetSingleDataFromSection(String name) {
+        return this.trackerDao.getSingleDataFromSection(name);
+    }
 
     public List<TrackerData> GetDataFromSection(String name) {
         return this.trackerDao.getDataFromSection(name);

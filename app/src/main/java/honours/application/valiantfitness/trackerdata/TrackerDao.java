@@ -26,6 +26,9 @@ public interface TrackerDao {
     @Query("Select * from TrackerData WHERE dataName like :name")
     public List<TrackerData> getDataFromSection(String name);
 
+    @Query("Select * from TrackerData WHERE dataName like :name")
+    public TrackerData getSingleDataFromSection(String name);
+
     @Query("Select * from TrackerData WHERE dataName like :name AND date =:date")
     public TrackerData getDataFromDateMode(String name,Long date);
 

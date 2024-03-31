@@ -1,5 +1,7 @@
 package honours.application.valiantfitness;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,10 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import honours.application.valiantfitness.socialdata.SocialData;
+import honours.application.valiantfitness.userdata.User;
+import honours.application.valiantfitness.userdata.UserRepository;
 
 public class SocialFragment extends Fragment implements View.OnClickListener, Spinner.OnItemSelectedListener {
 
@@ -35,6 +42,8 @@ public class SocialFragment extends Fragment implements View.OnClickListener, Sp
     EditText txtSearchLocation;
 
     Spinner spinner;
+
+    String DeviceID = "";
 
     private int spinnerLoc = 0;
 
@@ -56,6 +65,7 @@ public class SocialFragment extends Fragment implements View.OnClickListener, Sp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DeviceID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (getArguments() != null) {
 
         }
@@ -96,13 +106,32 @@ public class SocialFragment extends Fragment implements View.OnClickListener, Sp
     @Override
     public void onClick(View view) {
         AppCompatActivity activity = (AppCompatActivity) getContext();
+
+        UserRepository userRepository = new UserRepository(getContext());
+        User user = new User();
+        try{
+            user = userRepository.GetUserFromDeviceID(DeviceID);
+        }catch (Error error){
+
+        }
+
+
         if(view.getId() == btnSearch.getId()){
 
          if(ValidationPass() == true){
              Log.d(TAG, "Validation Passed");
 
+
+
+             SocialData socialData = new SocialData();
+             socialData.setMode(0);
+             socialData.setDescription(txtSocialDescription.getText().toString());
+             socialData.setLocation(txtSearchLocation.getText().toString());
+             socialData.setProfile(user.getUserName());
+
              Bundle bundle = new Bundle();
              bundle.putInt(SocialHelpFragment.ARG_MODE,1);
+             bundle.putParcelable(SocialHelpFragment.ARG_DATA,socialData);
              SocialHelpFragment socialHelpFragment = new SocialHelpFragment();
              socialHelpFragment.setArguments(bundle);
              activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, socialHelpFragment).commit();
@@ -110,14 +139,51 @@ public class SocialFragment extends Fragment implements View.OnClickListener, Sp
 
          }else{
              Log.d(TAG, "Validation Failed");
+             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+             builder.setMessage("Please make sure a profile has been set up, and all details have been filled in");
+             builder.setTitle("Social Search Failed");
+             builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialogInterface, int i) {
+
+                 }
+             });
+             AlertDialog dialog = builder.create();
+             dialog.show();
+
          }
 
         } else if (view.getId() == btnFind.getId()){
-            Bundle bundle = new Bundle();
-            bundle.putInt(SocialHelpFragment.ARG_MODE,0);
-            SocialHelpFragment socialHelpFragment = new SocialHelpFragment();
-            socialHelpFragment.setArguments(bundle);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, socialHelpFragment).commit();
+
+            if(ValidationPass2() == true){
+
+                SocialData socialData = new SocialData();
+                socialData.setMode(0);
+                socialData.setDescription(txtSocialDescription.getText().toString());
+                socialData.setLocation(txtSearchLocation.getText().toString());
+                socialData.setProfile(user.getUserName());
+
+                Bundle bundle = new Bundle();
+                bundle.putInt(SocialHelpFragment.ARG_MODE,0);
+                bundle.putParcelable(SocialHelpFragment.ARG_DATA,socialData);
+                SocialHelpFragment socialHelpFragment = new SocialHelpFragment();
+                socialHelpFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_Layout, socialHelpFragment).commit();
+            }else {
+                Log.d(TAG, "Validation Failed");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Please make sure a profile has been set up before proceeding");
+                builder.setTitle("Social Search Failed");
+                builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
         }
 
     }
@@ -129,6 +195,25 @@ public class SocialFragment extends Fragment implements View.OnClickListener, Sp
         } else if (txtSocialDescription.getText().length() == 0) {
             return false;
         } else if (spinnerLoc == 0) {
+            return false;
+        }
+
+        UserRepository userRepository = new UserRepository(getContext());
+
+        if (userRepository.GetUserFromDeviceID(DeviceID) == null){
+            return false;
+        }
+
+        return true;
+    };
+
+
+    public Boolean ValidationPass2(){
+
+
+        UserRepository userRepository = new UserRepository(getContext());
+
+        if (userRepository.GetUserFromDeviceID(DeviceID) == null){
             return false;
         }
 

@@ -1,10 +1,16 @@
 package honours.application.valiantfitness.socialdata;
 
-import android.provider.ContactsContract;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class SocialData {
 
-   private ContactsContract.Profile profile;
+import androidx.annotation.NonNull;
+
+import honours.application.valiantfitness.exercisecategory.Exercise;
+
+public class SocialData implements Parcelable {
+
+   private String profile;
 
    private String objective;
 
@@ -12,18 +18,31 @@ public class SocialData {
 
    private String location;
 
-    public SocialData(ContactsContract.Profile profile, String objective, String description, String location) {
+   private int mode;
+
+    public SocialData(String profile, String objective, String description, String location) {
         this.profile = profile;
         this.objective = objective;
         this.description = description;
         this.location = location;
     }
 
-    public ContactsContract.Profile getProfile() {
+    public SocialData(String profile, String objective, String description, String location, int mode) {
+        this.profile = profile;
+        this.objective = objective;
+        this.description = description;
+        this.location = location;
+        this.mode = mode;
+    }
+
+    public SocialData() {
+    }
+
+    public String getProfile() {
         return profile;
     }
 
-    public void setProfile(ContactsContract.Profile profile) {
+    public void setProfile(String profile) {
         this.profile = profile;
     }
 
@@ -50,4 +69,48 @@ public class SocialData {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(getProfile());
+        parcel.writeString(getObjective());
+        parcel.writeString(getDescription());
+        parcel.writeString(getLocation());
+        parcel.writeInt(getMode());
+    }
+
+    public static final Creator<SocialData> CREATOR = new Creator<SocialData>() {
+        @Override
+        public SocialData createFromParcel(Parcel in) {
+            SocialData socialData = new SocialData();
+
+
+            socialData.setProfile(in.readString());
+            socialData.setObjective(in.readString());
+            socialData.setDescription(in.readString());
+            socialData.setLocation(in.readString());
+            socialData.setMode(in.readInt());
+
+            return socialData;
+        }
+
+        @Override
+        public SocialData[] newArray(int i) {
+            return new SocialData[0];
+        }
+
+    };
 }
