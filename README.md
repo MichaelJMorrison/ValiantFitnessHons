@@ -31,7 +31,7 @@ When prompted you will be asked to install from an unknown app. You must go into
 
 Once installed you are good to begin usage.
 
-[Valiant V1](https://github.com/MichaelJMorrison/ValiantFitnessHons/releases/download/Test/ValiantV1.apk)
+[Valiant V1](https://github.com/MichaelJMorrison/ValiantFitnessHons/releases/download/FinalHonours/ValiantV1.apk)
 
 ## Survey
 To create a proper evaluation of the honours project, I require users to fill out the following survey once completed. No personal details will be collected from this survey.
